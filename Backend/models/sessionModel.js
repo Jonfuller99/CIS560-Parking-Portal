@@ -8,13 +8,12 @@ function getSession(id) {
     return sessions.get(id) || null; // null = not on page
 }
 
-function clearSession(id) {
+function logoutSession(id) {
     sessions.delete(id); // user closed tab
 }
 
 module.exports = {
     setSession,
     getSession,
-    clearSession,
     logoutSession
 };

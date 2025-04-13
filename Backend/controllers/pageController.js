@@ -2,19 +2,62 @@ const sessionModel = require('../models/sessionModel');
 const path = require('path');
 
 //homepage
-exports.homepage = (req, res) => {
+exports.homepage = async (req, res) => {
     const filePath = path.join(__dirname, '../../Frontend/Homepage/homepage.html');
-    res.sendFile(filePath);
+    try {
+        res.sendFile(filePath);
+    } catch (err) {
+        res.status(500).send('Error loading page');
+    }
+      
 }
 
 //person login
-exports.personLogin = (req, res) => {
+exports.personLogin = async (req, res) => {
     const filePath = path.join(__dirname, '../../Frontend/PersonLogin/PersonLogin.html');
-    res.sendFile(filePath);
+    try {
+        res.sendFile(filePath);
+    } catch (err) {
+        res.status(500).send('Error loading page');
+    }
 }
 
 //officer login
-exports.officerLogin = (req, res) => {
+exports.officerLogin = async (req, res) => {
     const filePath = path.join(__dirname, '../../Frontend/OfficerLogin/OfficerLogin.html');
-    res.sendFile(filePath);
+    try {
+        res.sendFile(filePath);
+    } catch (err) {
+        res.status(500).send('Error loading page');
+    }
+}
+
+//person page
+exports.personPage = async (req, res) => {
+    const sessionId = req.headers['x-session-id'];
+    if (sessionModel.getSession(sessionId) == 0) { //if person
+        const filePath = path.join(__dirname, '../../Frontend/PersonPage/PersonPage.html');
+        try {
+            res.sendFile(filePath);
+        } catch (err) {
+            res.status(500).send('Error loading page');
+        }
+    } else {
+        res.status(401).json({ success: false, message: 'Invalid status' });
+    }
+}
+
+//officer page
+exports.officerPage = async (req, res) => {
+    const sessionId = req.headers['x-session-id'];
+    if (sessionModel.getSession(sessionId) == 1) { //if officer
+        const filePath = path.join(__dirname, '../../Frontend/OfficerPage/OfficerPage.html');
+        try {
+            res.sendFile(filePath);
+        } catch (err) {
+            res.status(500).send('Error loading page');
+        }
+    } else {
+        res.status(401).json({ success: false, message: 'Invalid status' });
+    }
 }

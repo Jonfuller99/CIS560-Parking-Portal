@@ -10,6 +10,7 @@ const app = express();
 app.use(express.json());
 app.use('/auth', authRoutes);
 app.use('/', pageRoutes);
+console.log(6);
 app.use(express.static(path.join(__dirname, '../Frontend')));
 
 const PORT = process.env.PORT || 3000;
