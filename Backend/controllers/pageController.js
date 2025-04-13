@@ -3,7 +3,7 @@ const path = require('path');
 
 //homepage
 exports.homepage = async (req, res) => {
-    console.log("Person joined");
+    console.log("Someone joined");
     const filePath = path.join(__dirname, '../../Frontend/Homepage/Homepage.html');
     try {
         res.sendFile(filePath);
@@ -14,6 +14,7 @@ exports.homepage = async (req, res) => {
 
 //person login
 exports.personLogin = async (req, res) => {
+    console.log("At person login")
     const filePath = path.join(__dirname, '../../Frontend/PersonLogin/PersonLogin.html');
     try {
         res.sendFile(filePath);
@@ -24,6 +25,7 @@ exports.personLogin = async (req, res) => {
 
 //officer login
 exports.officerLogin = async (req, res) => {
+    console.log("At officer login")
     const filePath = path.join(__dirname, '../../Frontend/OfficerLogin/OfficerLogin.html');
     try {
         res.sendFile(filePath);
