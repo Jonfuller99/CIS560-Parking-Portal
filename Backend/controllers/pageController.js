@@ -3,14 +3,14 @@ const path = require('path');
 
 //homepage
 exports.homepage = async (req, res) => {
-    const filePath = path.join(__dirname, '../../Frontend/Homepage/homepage.html');
+    console.log("Person joined");
+    const filePath = path.join(__dirname, '../../Frontend/Homepage/Homepage.html');
     try {
         res.sendFile(filePath);
     } catch (err) {
         res.status(500).send('Error loading page');
     }
-      
-}
+};
 
 //person login
 exports.personLogin = async (req, res) => {
@@ -20,7 +20,7 @@ exports.personLogin = async (req, res) => {
     } catch (err) {
         res.status(500).send('Error loading page');
     }
-}
+};
 
 //officer login
 exports.officerLogin = async (req, res) => {
@@ -30,7 +30,7 @@ exports.officerLogin = async (req, res) => {
     } catch (err) {
         res.status(500).send('Error loading page');
     }
-}
+};
 
 //person page
 exports.personPage = async (req, res) => {
@@ -45,7 +45,7 @@ exports.personPage = async (req, res) => {
     } else {
         res.status(401).json({ success: false, message: 'Invalid status' });
     }
-}
+};
 
 //officer page
 exports.officerPage = async (req, res) => {
@@ -60,4 +60,4 @@ exports.officerPage = async (req, res) => {
     } else {
         res.status(401).json({ success: false, message: 'Invalid status' });
     }
-}
+};

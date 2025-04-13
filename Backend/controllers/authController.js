@@ -6,11 +6,11 @@ const sessionModel = require('../models/sessionModel');
 exports.personLogin = async (req, res) => {
     const { plate, stateCode } = req.body;
     try {
-        const [rows] = await db.query('CALL LoginPerson(?, ?)', [plate, stateCode]);
+        const [rows] = await db.query('CALL PersonLogin(?, ?)', [plate, stateCode]);
         if (rows[0].length > 0) {
             const sessionId = uuidv4();
             sessionModel.setSession(sessionId, 0); //person
-            res.json({ success: true, sessionId, status: 0 });
+            res.json({ success: true, sessionId, state: 0 });
         } else {
             res.status(401).json({ success: false, message: 'Invalid license info' });
         }
@@ -23,11 +23,11 @@ exports.personLogin = async (req, res) => {
 exports.officerLogin = async (req, res) => {
     const { username, password } = req.body;
     try {
-        const [rows] = await db.query('CALL LoginOfficer(?, ?)', [username, password]);
+        const [rows] = await db.query('CALL OfficerLogin(?, ?)', [username, password]);
         if (rows[0].length > 0) {
             const sessionId = uuidv4();
             sessionModel.setSession(sessionId, 1); //officer
-            res.json({ success: true, sessionId, status: 1 });
+            res.json({ success: true, sessionId, state: 1 });
         } else {
             res.status(401).json({ success: false, message: 'Invalid officer credentials' });
         }
