@@ -6,7 +6,12 @@ const sessionModel = require('../models/sessionModel');
 exports.personLogin = async (req, res) => {
     const { plate, stateCode } = req.body;
     try {
-        const [rows] = await db.query('CALL PersonLogin(?, ?)', [plate, stateCode]);
+        const [rows] = await db.query('EXEC PersonLogin @plate=:plate, @stateCode=:stateCode', {
+            replacements: {
+                plate,
+                stateCode
+            }
+        })
         if (rows[0].length > 0) {
             const sessionId = uuidv4();
             sessionModel.setSession(sessionId, 0); //person
@@ -23,7 +28,12 @@ exports.personLogin = async (req, res) => {
 exports.officerLogin = async (req, res) => {
     const { username, password } = req.body;
     try {
-        const [rows] = await db.query('CALL OfficerLogin(?, ?)', [username, password]);
+        const [rows] = await db.query('EXEC OfficerLogin @username=:username, @password=:password', {
+            replacements: {
+              username,
+              password
+            }
+          });
         if (rows[0].length > 0) {
             const sessionId = uuidv4();
             sessionModel.setSession(sessionId, 1); //officer
