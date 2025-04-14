@@ -14,10 +14,10 @@ exports.homepage = async (req, res) => {
 
 //person login
 exports.personLogin = async (req, res) => {
-    console.log("At person login")
     const filePath = path.join(__dirname, '../../Frontend/PersonLogin/PersonLogin.html');
     try {
         res.sendFile(filePath);
+        console.log("At person login")
     } catch (err) {
         res.status(500).send('Error loading page');
     }
@@ -25,10 +25,10 @@ exports.personLogin = async (req, res) => {
 
 //officer login
 exports.officerLogin = async (req, res) => {
-    console.log("At officer login")
     const filePath = path.join(__dirname, '../../Frontend/OfficerLogin/OfficerLogin.html');
     try {
         res.sendFile(filePath);
+        console.log("At officer login")
     } catch (err) {
         res.status(500).send('Error loading page');
     }
@@ -41,6 +41,7 @@ exports.personPage = async (req, res) => {
         const filePath = path.join(__dirname, '../../Frontend/PersonPage/PersonPage.html');
         try {
             res.sendFile(filePath);
+            console.log("At person page")
         } catch (err) {
             res.status(500).send('Error loading page');
         }
@@ -56,6 +57,7 @@ exports.officerPage = async (req, res) => {
         const filePath = path.join(__dirname, '../../Frontend/OfficerPage/OfficerPage.html');
         try {
             res.sendFile(filePath);
+            console.log("At officer page")
         } catch (err) {
             res.status(500).send('Error loading page');
         }
