@@ -25,9 +25,10 @@ CREATE TABLE Parking.StateCodes
 
 CREATE TABLE Parking.People(
     PersonID INT PRIMARY KEY,
-    LicensePlate VARCHAR(15) UNIQUE NOT NULL,
+    LicensePlate VARCHAR(15) NOT NULL,
     StateCode CHAR(2) NOT NULL,
-    Email VARCHAR(100) UNIQUE,
+    Email VARCHAR(100),
+    UNIQUE (StateCode, LicensePlate),
     FOREIGN KEY (StateCode) REFERENCES Parking.StateCodes(StateCode)
 );
 
