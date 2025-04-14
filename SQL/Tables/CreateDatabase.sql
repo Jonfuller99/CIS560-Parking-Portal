@@ -25,7 +25,7 @@ CREATE TABLE Parking.StateCodes
 
 CREATE TABLE Parking.People(
     PersonID INT PRIMARY KEY,
-    LicensePlate VARCHAR(15) NOT NULL,
+    LicensePlate VARCHAR(6) NOT NULL,
     StateCode CHAR(2) NOT NULL,
     Email VARCHAR(100),
     UNIQUE (StateCode, LicensePlate),
@@ -33,12 +33,12 @@ CREATE TABLE Parking.People(
 );
 
 CREATE TABLE Parking.PassTypes (
-    PassType VARCHAR(50) PRIMARY KEY
+    PassType VARCHAR(2) PRIMARY KEY
 );
 
 CREATE TABLE Parking.PassTypeYears (
     PassTypeYearID INT PRIMARY KEY,
-    PassType VARCHAR(50) NOT NULL,
+    PassType VARCHAR(2) NOT NULL,
     YearOfValidity INT NOT NULL,
     Price DECIMAL(8,2) NOT NULL,
     CONSTRAINT UQ_PassType_Year UNIQUE (PassType, YearOfValidity),
@@ -49,19 +49,19 @@ CREATE TABLE Parking.Passes (
     PassID INT PRIMARY KEY,
     PassTypeYearID INT NOT NULL,
     PersonID INT NOT NULL,
-    TimePurchased DATETIME NOT NULL,
+    TimePurchased DATETIMEOFFSET NOT NULL,
     CONSTRAINT UQ_Passes_PassTypeYear_Person UNIQUE (PassTypeYearID, PersonID),
     FOREIGN KEY (PassTypeYearID) REFERENCES Parking.PassTypeYears(PassTypeYearID),
     FOREIGN KEY (PersonID) REFERENCES Parking.People(PersonID)
 );
 
 CREATE TABLE Parking.LotTypes (
-    LotType VARCHAR(50) PRIMARY KEY
+    LotType VARCHAR(2) PRIMARY KEY
 );
 
 CREATE TABLE Parking.LotTypeYears (
     LotTypeYearID INT PRIMARY KEY,
-    LotType VARCHAR(50) NOT NULL,
+    LotType VARCHAR(2) NOT NULL,
     YearOfValidity INT NOT NULL,
     Fee DECIMAL(8,2) NOT NULL,
     CONSTRAINT UQ_LotType_Year UNIQUE (LotType, YearOfValidity),
@@ -69,8 +69,8 @@ CREATE TABLE Parking.LotTypeYears (
 );
 
 CREATE TABLE Parking.Accessibility (
-    PassType VARCHAR(50) NOT NULL,
-    LotType VARCHAR(50) NOT NULL,
+    PassType VARCHAR(2) NOT NULL,
+    LotType VARCHAR(2) NOT NULL,
     PRIMARY KEY (PassType, LotType),
     FOREIGN KEY (PassType) REFERENCES Parking.PassTypes(PassType),
     FOREIGN KEY (LotType) REFERENCES Parking.LotTypes(LotType)
@@ -79,7 +79,7 @@ CREATE TABLE Parking.Accessibility (
 CREATE TABLE Parking.Lots (
     LotID INT PRIMARY KEY,
     LotName VARCHAR(50) UNIQUE NOT NULL,
-    LotType VARCHAR(50) NOT NULL,
+    LotType VARCHAR(2) NOT NULL,
     FOREIGN KEY (LotType) REFERENCES Parking.LotTypes(LotType)
 );
 
@@ -96,10 +96,10 @@ CREATE TABLE Parking.Tickets (
     OfficerID INT NOT NULL,
     PersonID INT NOT NULL,
     LotID INT NOT NULL,
-    TimeIssued DATETIME NOT NULL,
+    TimeIssued DATETIMEOFFSET NOT NULL,
     Fee DECIMAL(8,2) NOT NULL,
     LateCharge DECIMAL(8,2) NOT NULL,
-    TimePaid DATETIME,
+    TimePaid DATETIMEOFFSET,
     FOREIGN KEY (OfficerID) REFERENCES Parking.Officers(OfficerID),
     FOREIGN KEY (PersonID) REFERENCES Parking.People(PersonID),
     FOREIGN KEY (LotID) REFERENCES Parking.Lots(LotID)
