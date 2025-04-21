@@ -1,5 +1,5 @@
 IF SCHEMA_ID(N'Parking') IS NULL
-    EXEC(N'CREATE SCHEMA[Parking];');
+    EXEC(N'CREATE SCHEMA [Parking];');
 GO
 
 DROP TABLE IF EXISTS Parking.Tickets;
@@ -24,7 +24,7 @@ CREATE TABLE Parking.StateCodes
 );
 
 CREATE TABLE Parking.People(
-    PersonID INT PRIMARY KEY,
+    PersonID INT IDENTITY(1,1) PRIMARY KEY,
     LicensePlate VARCHAR(6) NOT NULL,
     StateCode CHAR(2) NOT NULL,
     Email VARCHAR(100),
@@ -37,7 +37,7 @@ CREATE TABLE Parking.PassTypes (
 );
 
 CREATE TABLE Parking.PassTypeYears (
-    PassTypeYearID INT PRIMARY KEY,
+    PassTypeYearID INT IDENTITY(1,1) PRIMARY KEY,
     PassType VARCHAR(2) NOT NULL,
     YearOfValidity INT NOT NULL,
     Price DECIMAL(8,2) NOT NULL,
@@ -46,7 +46,7 @@ CREATE TABLE Parking.PassTypeYears (
 );
 
 CREATE TABLE Parking.Passes (
-    PassID INT PRIMARY KEY,
+    PassID INT IDENTITY(1,1) PRIMARY KEY,
     PassTypeYearID INT NOT NULL,
     PersonID INT NOT NULL,
     TimePurchased DATETIMEOFFSET NOT NULL,
@@ -60,7 +60,7 @@ CREATE TABLE Parking.LotTypes (
 );
 
 CREATE TABLE Parking.LotTypeYears (
-    LotTypeYearID INT PRIMARY KEY,
+    LotTypeYearID INT IDENTITY(1,1) PRIMARY KEY,
     LotType VARCHAR(2) NOT NULL,
     YearOfValidity INT NOT NULL,
     Fee DECIMAL(8,2) NOT NULL,
@@ -77,14 +77,14 @@ CREATE TABLE Parking.Accessibility (
 );
 
 CREATE TABLE Parking.Lots (
-    LotID INT PRIMARY KEY,
+    LotID INT IDENTITY(1,1) PRIMARY KEY,
     LotName VARCHAR(50) UNIQUE NOT NULL,
     LotType VARCHAR(2) NOT NULL,
     FOREIGN KEY (LotType) REFERENCES Parking.LotTypes(LotType)
 );
 
 CREATE TABLE Parking.Officers (
-    OfficerID INT PRIMARY KEY,
+    OfficerID INT IDENTITY(1,1) PRIMARY KEY,
     FirstName VARCHAR(50) NOT NULL,
     LastName VARCHAR(50) NOT NULL,
     HashPassword VARCHAR(255) NOT NULL,
@@ -92,7 +92,7 @@ CREATE TABLE Parking.Officers (
 );
 
 CREATE TABLE Parking.Tickets (
-    TicketID INT PRIMARY KEY,
+    TicketID INT IDENTITY(1,1) PRIMARY KEY,
     OfficerID INT NOT NULL,
     PersonID INT NOT NULL,
     LotID INT NOT NULL,
