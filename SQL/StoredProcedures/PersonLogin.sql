@@ -3,12 +3,7 @@ CREATE PROCEDURE Parking.PersonLogin
     @stateCode CHAR(2)
 AS
 BEGIN
-    IF EXISTS (
-        SELECT * FROM Parking.People P WHERE P.LicensePlate = @plate AND P.StateCode = @stateCode;
-    ) THEN
-        RETURN 1;
-    RETURN 0;
-    
-END
+    SELECT 1 FROM Parking.People P WHERE P.LicensePlate = @plate AND P.StateCode = @stateCode;
+END;
 
-DROP PROCEDURE Parking.PersonLogin
+DROP PROCEDURE Parking.PersonLogin;
