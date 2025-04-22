@@ -109,9 +109,7 @@ CREATE TABLE Parking.Tickets (
 
 
 
-/*
-Populate tables
-*/
+
 
 
 INSERT INTO Parking.StateCodes (StateCode)
@@ -128,6 +126,7 @@ VALUES
     ('VA'), ('WA'), ('WV'), ('WI'), ('WY'), ('DC');
 
 
+    -- Sample insert for 100 people
 INSERT INTO Parking.People (LicensePlate, StateCode, Email)
 VALUES
 ('ABC123', 'CA', 'john.doe1@example.com'),
@@ -246,7 +245,7 @@ VALUES
     ('A'), ('B'), ('C'), ('D'), ('W');
 
 
-INSERT INTO Parking.PassTypeYears (PassType, YearOfValidity, Price)
+    INSERT INTO Parking.PassTypeYears (PassType, YearOfValidity, Price)
 VALUES
 ('A', 2023, 200.00),
 ('B', 2023, 250.00),
@@ -267,120 +266,20 @@ VALUES
 ('W', 2025, 0.00);
 
 
-INSERT INTO Parking.Passes (PassTypeYearID, PersonID, TimePurchased)
-SELECT
-    pty.PassTypeYearID,
-    v.PersonID,
-    DATEFROMPARTS(v.YearOfValidity, v.[Month], v.[Day])  -- or SYSDATETIMEOFFSET()
-FROM (
-    VALUES
-        ('A', 2023, 3, 14, 1),
-        ('B', 2023, 5, 22, 2),
-        ('C', 2023, 7, 19, 3),
-        ('D', 2023, 8, 30, 4),
-        ('W', 2023, 12, 1, 5),
+INSERT INTO Parking.Officers (FirstName, LastName, HashPassword, UserName)
+VALUES
+('Jon', 'Fuller', 'fcec29142240d73631cb2e865ef2b8f245e8ea3a563904f021cee043c8ce2eee', 'Fullerj'),
+('Christian', 'Ramirez', '2999127c9a93e04ef8c83633bc27b6fbf1a05a113a8d84260d566a1c207e6a0f', 'Ramirezc'),
+('Christian', 'Bartel', 'ed9d6a077c51a22642408369ba82bd3629bd041e9fc3ecde84b5e642dc554ded', 'Bartelc'),
+('Taylor', 'Reynolds', '23d389406e2eae48cdc9c28745a11b239395792aa2cce8d7afe7804a85516443', 'Reynoldst'),
+('Avery', 'Thompson', 'd7e64e83f66fa879a18dfae667a907311589d5b7422b791e16da413f49bb9101', 'Thompsona'),
+('Riley', 'Carson', '7ca28419b0ca4cd664faaab8122a4f76493441077f7f577e8844ae0701fef43a', 'Carsonr'),
+('Quinn', 'Wallace', 'da79e659bbdd5b0fbfa11957fb1beaa1f672a8d64521b6a0b06b3658032e618e', 'Wallaceq'),
+('Drew', 'Harper', '26238936236e15e8fe1f25e357a5fd2cadc14e041d3d50b85c689aef6d5f3319', 'Harperd'),
+('Logan', 'Ramsey', 'e393429fc2718994855da77ba3b1aba67014972a28471b1fecb21fa2ba375e76', 'Ramseyl'),
+('Peyton', 'Morris', 'ae087349bb953601482c9c52169257c0cb0371cbac3d921b5896a9aba8cc8a43', 'Morrisp'),
+('Emerson', 'Clarke', '9faf9ee14d45246ab1c76cd60b5fb513a0975a5c04ad6d6f6bcb8bddc9b43105', 'Clarkee');
 
-        ('A', 2023, 3, 14, 5),
-        ('B', 2023, 5, 22, 6),
-        ('C', 2023, 7, 19, 7),
-        ('D', 2023, 8, 30, 8),
-        ('W', 2023, 12, 1, 9),
 
-        ('A', 2023, 3, 14, 9),
-        ('B', 2023, 5, 22, 10),
-        ('C', 2023, 7, 19, 11),
-        ('D', 2023, 8, 30, 12),
-        ('W', 2023, 12, 1, 13),
 
-        ('A', 2023, 3, 14, 14),
-        ('B', 2023, 5, 22, 15),
-        ('C', 2023, 7, 19, 16),
-        ('D', 2023, 8, 30, 17),
-        ('W', 2023, 12, 1, 18),
 
-        ('A', 2023, 3, 14, 20),
-        ('A', 2023, 5, 22, 21),
-        ('A', 2023, 7, 19, 22),
-        ('A', 2023, 8, 30, 23),
-        ('A', 2023, 12, 1, 24),
-
-        ('A', 2023, 3, 14, 25),
-        ('A', 2023, 5, 22, 26),
-        ('A', 2023, 7, 19, 27),
-        ('A', 2023, 8, 30, 28),
-        ('A', 2023, 12, 1, 29),
-        
-        ('B', 2023, 3, 14, 30),
-        ('B', 2023, 5, 22, 31),
-        ('B', 2023, 7, 19, 32),
-        ('B', 2023, 8, 30, 33),
-        ('B', 2023, 12, 1, 34),
-
-        ('A', 2024, 1, 12, 6),
-        ('B', 2024, 3, 8, 7),
-        ('C', 2024, 6, 18, 8),
-        ('D', 2024, 9, 25, 9),
-        ('W', 2024, 11, 3, 10),
-
-        ('A', 2024, 1, 12, 10),
-        ('B', 2024, 3, 8, 11),
-        ('C', 2024, 6, 18, 12),
-        ('D', 2024, 9, 25, 13),
-        ('W', 2024, 11, 3, 14),
-
-        ('A', 2024, 1, 12, 15),
-        ('B', 2024, 3, 8, 16),
-        ('C', 2024, 6, 18, 17),
-        ('D', 2024, 9, 25, 18),
-        ('W', 2024, 11, 3, 19),
-
-        ('A', 2024, 1, 12, 20),
-        ('A', 2024, 3, 8, 21),
-        ('A', 2024, 6, 18, 22),
-        ('A', 2024, 9, 25, 23),
-        ('A', 2024, 11, 3, 24),
-
-        ('B', 2024, 1, 12, 25),
-        ('B', 2024, 3, 8, 26),
-        ('B', 2024, 6, 18, 27),
-        ('B', 2024, 9, 25, 28),
-        ('B', 2024, 11, 3, 29),
-
-        ('C', 2024, 1, 12, 30),
-        ('C', 2024, 3, 8, 31),
-        ('C', 2024, 6, 18, 32),
-        ('C', 2024, 9, 25, 33),
-        ('C', 2024, 11, 3, 34),
-
-        ('A', 2025, 2, 9, 11),
-        ('B', 2025, 4, 15, 12),
-        ('C', 2025, 5, 27, 13),
-        ('D', 2025, 7, 6, 14),
-        ('W', 2025, 10, 20, 15),
-
-        ('A', 2025, 2, 9, 16),
-        ('B', 2025, 4, 15, 17),
-        ('C', 2025, 5, 27, 18),
-        ('D', 2025, 7, 6, 19),
-        ('W', 2025, 10, 20, 20),
-
-        ('A', 2025, 2, 9, 20),
-        ('B', 2025, 4, 15, 21),
-        ('C', 2025, 5, 27, 22),
-        ('D', 2025, 7, 6, 23),
-        ('W', 2025, 10, 20, 24),
-
-        ('A', 2025, 2, 9, 25),
-        ('A', 2025, 4, 15, 26),
-        ('A', 2025, 5, 27, 27),
-        ('A', 2025, 7, 6, 28),
-        ('A', 2025, 10, 20, 29),
-
-        ('D', 2025, 2, 9, 30),
-        ('D', 2025, 4, 15, 31),
-        ('D', 2025, 5, 27, 32),
-        ('D', 2025, 7, 6, 33),
-        ('D', 2025, 10, 20, 34)
-) AS v(PassType, YearOfValidity, [Month], [Day], PersonID)
-INNER JOIN Parking.PassTypeYears pty
-    ON v.PassType = pty.PassType AND v.YearOfValidity = pty.YearOfValidity;
