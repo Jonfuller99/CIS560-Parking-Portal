@@ -31,7 +31,8 @@ exports.personLogin = async (req, res) => {
 //when officer log in occurs
 exports.officerLogin = async (req, res) => {
     const { username, password } = req.body;
-    const hashPassword = sha256Hash(password);
+    const hashPassword = await sha256Hash(password);
+    console.log(hashPassword);
     try {
         /*const [rows] = await db.query('EXEC Parking.OfficerLogin @username=:username, @password=:hashPassword', {
             replacements: {

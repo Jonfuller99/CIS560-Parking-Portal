@@ -1,3 +1,17 @@
+fetch('/db/get-codes')
+    .then(res => {
+        return res.json();
+    })
+    .then(data => {
+        let stateCodeSelect = document.getElementById('state-code');
+        data.rows.forEach((row) => {
+            let opt = new Option();
+            opt.value = row.StateCode;
+            opt.textContent = row.StateCode
+            stateCodeSelect.appendChild(opt);
+        })
+    })
+
 async function login() {
     let personPlate = document.getElementById('plate').value;
     let personStateCode = document.getElementById('state-code').value;
