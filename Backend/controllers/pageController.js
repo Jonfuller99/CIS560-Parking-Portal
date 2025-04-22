@@ -3,10 +3,21 @@ const path = require('path');
 
 //homepage
 exports.homepage = async (req, res) => {
-    console.log("Someone joined");
+    console.log("At homepage");
     const filePath = path.join(__dirname, '../../Frontend/Homepage/Homepage.html');
     try {
         res.sendFile(filePath);
+    } catch (err) {
+        res.status(500).send('Error loading page');
+    }
+};
+
+//buy pass
+exports.buyPass = async (req, res) => {
+    const filePath = path.join(__dirname, '../../Frontend/BuyPassPage/BuyPassPage.html');
+    try {
+        res.sendFile(filePath);
+        console.log("At buy pass")
     } catch (err) {
         res.status(500).send('Error loading page');
     }

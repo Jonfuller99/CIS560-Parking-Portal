@@ -1,4 +1,3 @@
--- Sample insert for 100 people
 INSERT INTO Parking.People (LicensePlate, StateCode, Email)
 VALUES
 ('ABC123', 'CA', 'john.doe1@example.com'),
