@@ -1,15 +1,15 @@
 const sessions = new Map();
 
 function setSession(id, type) {
-    sessions.set(id, { type });
+    sessions.set(id, type);
 }
 
 function getSession(id) {
-    return sessions.get(id) || null; // null = not on page
+    return sessions.get(id);
 }
 
 function logoutSession(id) {
-    sessions.delete(id); // user closed tab
+    sessions.delete(id);
 }
 
 module.exports = {

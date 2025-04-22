@@ -47,7 +47,7 @@ exports.officerLogin = async (req, res) => {
 
 //person page
 exports.personPage = async (req, res) => {
-    const sessionId = req.headers['x-session-id'];
+    const sessionId = req.cookies.sessionId;
     if (sessionModel.getSession(sessionId) == 0) { //if person
         const filePath = path.join(__dirname, '../../Frontend/PersonPage/PersonPage.html');
         try {
@@ -63,7 +63,7 @@ exports.personPage = async (req, res) => {
 
 //officer page
 exports.officerPage = async (req, res) => {
-    const sessionId = req.headers['x-session-id'];
+    const sessionId = req.cookies.sessionId;
     if (sessionModel.getSession(sessionId) == 1) { //if officer
         const filePath = path.join(__dirname, '../../Frontend/OfficerPage/OfficerPage.html');
         try {
