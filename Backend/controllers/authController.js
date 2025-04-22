@@ -15,7 +15,7 @@ exports.personLogin = async (req, res) => {
         })
         if (rows.length > 0) {
             //if person already has a status, remove it
-            if (sessionModel.getSession(req.cookies.sessionId) != undefined) sessionModel.logoutSession(req.cookies.sessionId);
+            if (sessionModel.getSession(req.cookies.sessionId) != null) sessionModel.logoutSession(req.cookies.sessionId);
             const sessionId = uuidv4();
             sessionModel.setSession(sessionId, 0); //person
             res.json({ success: true, id: sessionId, state: 0 });
@@ -42,7 +42,7 @@ exports.officerLogin = async (req, res) => {
           */
         if (/*rows.length > 0*/ true) {
             //if person already has a status, remove it
-            if (sessionModel.getSession(req.cookies.sessionId) != undefined) sessionModel.logoutSession(req.cookies.sessionId);
+            if (sessionModel.getSession(req.cookies.sessionId) != null) sessionModel.logoutSession(req.cookies.sessionId);
             const sessionId = uuidv4();
             sessionModel.setSession(sessionId, 1); //officer
             res.json({ success: true, id: sessionId, state: 1 });
@@ -52,17 +52,6 @@ exports.officerLogin = async (req, res) => {
     } catch (err) {
         res.status(500).json({ error: err.message });
     } 
-};
-
-//when a logout occurs
-exports.logout = async (req, res) => {
-    const sessionId = req.headers['x-session-id'];
-    if (sessionId) {
-        sessionModel.logoutSession(sessionId); // delete session entirely
-        res.json({ message: 'Disconnected' });
-    } else {
-        res.status(400).json({ error: 'Missing session ID' });
-    }
 };
 
 //hash function

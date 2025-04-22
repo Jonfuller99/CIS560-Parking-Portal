@@ -25,10 +25,17 @@ exports.buyPass = async (req, res) => {
 
 //person login
 exports.personLogin = async (req, res) => {
-    const filePath = path.join(__dirname, '../../Frontend/PersonLogin/PersonLogin.html');
+    let filePath;
+    if (sessionModel.getSession(req.cookies.sessionId) == 0) {
+        filePath = path.join(__dirname, '../../Frontend/PersonPage/PersonPage.html');
+        console.log("At person page")
+    } else {
+        filePath = path.join(__dirname, '../../Frontend/PersonLogin/PersonLogin.html');
+        console.log("At person login")
+    } 
+    
     try {
         res.sendFile(filePath);
-        console.log("At person login")
     } catch (err) {
         res.status(500).send('Error loading page');
     }
@@ -36,10 +43,17 @@ exports.personLogin = async (req, res) => {
 
 //officer login
 exports.officerLogin = async (req, res) => {
-    const filePath = path.join(__dirname, '../../Frontend/OfficerLogin/OfficerLogin.html');
+    let filePath;
+    if (sessionModel.getSession(req.cookies.sessionId) == 1) {
+        filePath = path.join(__dirname, '../../Frontend/OfficerPage/OfficerPage.html');
+        console.log("At officer page")
+    } else {
+        filePath = path.join(__dirname, '../../Frontend/OfficerLogin/OfficerLogin.html');
+        console.log("At officer login")
+    } 
+
     try {
         res.sendFile(filePath);
-        console.log("At officer login")
     } catch (err) {
         res.status(500).send('Error loading page');
     }
@@ -47,7 +61,6 @@ exports.officerLogin = async (req, res) => {
 
 //person page
 exports.personPage = async (req, res) => {
-    
     if (sessionModel.getSession(req.cookies.sessionId) == 0) { //if person
         const filePath = path.join(__dirname, '../../Frontend/PersonPage/PersonPage.html');
         try {
