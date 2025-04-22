@@ -1,6 +1,6 @@
 async function login() {
-    let officerUsername = document.getElementById('username');
-    let officerPassword = document.getElementById('password');
+    let officerUsername = document.getElementById('username').value;
+    let officerPassword = document.getElementById('password').value;
 
     let req = {
         method: 'POST',

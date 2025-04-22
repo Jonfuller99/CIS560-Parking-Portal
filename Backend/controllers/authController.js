@@ -6,15 +6,14 @@ const sessionModel = require('../models/sessionModel');
 exports.personLogin = async (req, res) => {
     const { plate, stateCode } = req.body;
     try {
-        /*
-        const [rows] = await db.query('EXEC PersonLogin @plate=:plate, @stateCode=:stateCode', {
+        
+        const [rows] = await db.query('EXEC Parking.PersonLogin @plate=:plate, @stateCode=:stateCode', {
             replacements: {
                 plate,
                 stateCode
             }
         })
-            */
-        if (/*rows[0].length > 0*/ true) {
+        if (rows.length > 0) {
             //if person already has a status, remove it
             if (sessionModel.getSession(req.cookies.sessionId) != undefined) sessionModel.logoutSession(req.cookies.sessionId);
             const sessionId = uuidv4();
@@ -24,6 +23,7 @@ exports.personLogin = async (req, res) => {
             res.status(401).json({ success: false, message: 'Invalid license info' });
         }
     } catch (err) {
+        console.error(err);
         res.status(500).json({ error: err.message });
     }
 };

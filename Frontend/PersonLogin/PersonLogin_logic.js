@@ -1,6 +1,6 @@
 async function login() {
-    let personPlate = document.getElementById('plate');
-    let personStateCode = document.getElementById('state-code');
+    let personPlate = document.getElementById('plate').value;
+    let personStateCode = document.getElementById('state-code').value;
 
     let req = {
         method: 'POST',
@@ -8,13 +8,17 @@ async function login() {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            username: personPlate,
-            password: personStateCode
+            plate: personPlate,
+            stateCode: personStateCode
         })
     }
 
     fetch('/auth/person-login', req)
         .then(res => {
+            if (!res.ok) {
+                const errorData = res.json();
+                throw new Error(errorData.error);
+            }
             return res.json(); // Convert to JSON    
         })
         .then(data => {
