@@ -33,14 +33,14 @@ exports.officerLogin = async (req, res) => {
     const { username, password } = req.body;
     const hashPassword = sha256Hash(password);
     try {
-        /*const [rows] = await db.query('EXEC OfficerLogin @username=:username, @password=:hasPassword', {
+        /*const [rows] = await db.query('EXEC Parking.OfficerLogin @username=:username, @password=:hashPassword', {
             replacements: {
               username,
               hashPassword
             }
           });
           */
-        if (/*rows[0].length > 0*/ true) {
+        if (/*rows.length > 0*/ true) {
             //if person already has a status, remove it
             if (sessionModel.getSession(req.cookies.sessionId) != undefined) sessionModel.logoutSession(req.cookies.sessionId);
             const sessionId = uuidv4();
