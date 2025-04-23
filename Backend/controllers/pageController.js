@@ -25,37 +25,31 @@ exports.buyPass = async (req, res) => {
 
 //person login
 exports.personLogin = async (req, res) => {
-    let filePath;
     if (sessionModel.getSession(req.cookies.sessionId) == 0) {
-        filePath = path.join(__dirname, '../../Frontend/PersonPage/PersonPage.html');
-        console.log("At person page")
+        res.redirect('/person-page');
     } else {
-        filePath = path.join(__dirname, '../../Frontend/PersonLogin/PersonLogin.html');
-        console.log("At person login")
-    } 
-    
-    try {
-        res.sendFile(filePath);
-    } catch (err) {
-        res.status(500).send('Error loading page');
+        const filePath = path.join(__dirname, '../../Frontend/PersonLogin/PersonLogin.html');
+        try {
+            res.sendFile(filePath);
+            console.log("At person login")
+        } catch (err) {
+            res.status(500).send('Error loading page');
+        }
     }
 };
 
 //officer login
 exports.officerLogin = async (req, res) => {
-    let filePath;
     if (sessionModel.getSession(req.cookies.sessionId) == 1) {
-        filePath = path.join(__dirname, '../../Frontend/OfficerPage/OfficerPage.html');
-        console.log("At officer page")
+        res.redirect('/officer-page');
     } else {
-        filePath = path.join(__dirname, '../../Frontend/OfficerLogin/OfficerLogin.html');
-        console.log("At officer login")
-    } 
-
-    try {
-        res.sendFile(filePath);
-    } catch (err) {
-        res.status(500).send('Error loading page');
+        const filePath = path.join(__dirname, '../../Frontend/OfficerLogin/OfficerLogin.html');
+        try {
+            res.sendFile(filePath);
+            console.log("At officer login")
+        } catch (err) {
+            res.status(500).send('Error loading page');
+        }
     }
 };
 
