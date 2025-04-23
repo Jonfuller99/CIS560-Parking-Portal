@@ -32,16 +32,15 @@ exports.personLogin = async (req, res) => {
 exports.officerLogin = async (req, res) => {
     const { username, password } = req.body;
     const hashPassword = await sha256Hash(password);
-    console.log(hashPassword);
     try {
-        /*const [rows] = await db.query('EXEC Parking.OfficerLogin @username=:username, @password=:hashPassword', {
+        const [rows] = await db.query('EXEC Parking.OfficerLogin @username=:username, @password=:hashPassword', {
             replacements: {
               username,
               hashPassword
             }
-          });
-          */
-        if (/*rows.length > 0*/ true) {
+        });
+          
+        if (rows.length > 0) {
             //if person already has a status, remove it
             if (sessionModel.getSession(req.cookies.sessionId) != null) sessionModel.logoutSession(req.cookies.sessionId);
             const sessionId = uuidv4();
