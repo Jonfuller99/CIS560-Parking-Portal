@@ -36,6 +36,15 @@ CREATE TABLE Parking.PassTypeYears (
     FOREIGN KEY (PassType) REFERENCES Parking.PassTypes(PassType)
 );
 
+CREATE TABLE Parking.People(
+    PersonID INT IDENTITY(1,1) PRIMARY KEY,
+    LicensePlate VARCHAR(6) NOT NULL,
+    StateCode CHAR(2) NOT NULL FOREIGN KEY REFERENCES Parking.StateCodes(StateCode),
+    Email VARCHAR(100),
+    UNIQUE (StateCode, LicensePlate),
+    
+);
+
 CREATE TABLE Parking.Passes (
     PassID INT IDENTITY(1,1) PRIMARY KEY,
     PassTypeYearID INT NOT NULL,
@@ -113,7 +122,8 @@ VALUES
     ('SD'), ('TN'), ('TX'), ('UT'), ('VT'),
     ('VA'), ('WA'), ('WV'), ('WI'), ('WY'), ('DC');
 
-    INSERT INTO Parking.People (LicensePlate, StateCode, Email)
+
+INSERT INTO Parking.People (LicensePlate, StateCode, Email)
 VALUES
 ('ABC123', 'CA', 'john.doe1@example.com'),
 ('XYZ456', 'NY', 'jane.doe2@example.com'),
