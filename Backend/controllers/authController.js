@@ -38,7 +38,7 @@ exports.officerLogin = async (req, res) => {
               username,
               hashPassword
             }
-          });
+        });
           
         if (rows.length > 0) {
             //if person already has a status, remove it

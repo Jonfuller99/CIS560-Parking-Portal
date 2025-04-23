@@ -43,20 +43,29 @@ exports.officerLogin = async (req, res) => {
 
 //person page
 exports.personPage = async (req, res) => {
-    const filePath = path.join(__dirname, '../../Frontend/PersonPage/PersonPage_logic.js');
-    try {
-        res.sendFile(filePath);
-    } catch (err) {
-        res.status(500).send('Error loading js');
+    if (sessionModel.getSession(req.cookies.sessionId) == 0) {
+        const filePath = path.join(__dirname, '../../Frontend/PersonPage/PersonPage_logic.js');
+        try {
+            res.sendFile(filePath);
+        } catch (err) {
+            res.status(500).send('Error loading js');
+        }
+    } else {
+        res.status(401).json({ success: false, message: 'Invalid status' });
     }
 };
 
 //officer page
 exports.officerPage = async (req, res) => {
-    const filePath = path.join(__dirname, '../../Frontend/OfficerPage/OfficerPage_logic.js');
-    try {
-        res.sendFile(filePath);
-    } catch (err) {
-        res.status(500).send('Error loading js');
+    if (sessionModel.getSession(req.cookies.sessionId) == 0) {
+        const filePath = path.join(__dirname, '../../Frontend/OfficerPage/OfficerPage_logic.js');
+        try {
+            res.sendFile(filePath);
+        } catch (err) {
+            res.status(500).send('Error loading js');
+        }
+    } else {
+        res.status(401).json({ success: false, message: 'Invalid status' });
     }
+    
 };
