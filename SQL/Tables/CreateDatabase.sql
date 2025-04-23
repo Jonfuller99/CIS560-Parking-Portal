@@ -23,16 +23,6 @@ CREATE TABLE Parking.StateCodes
     StateCode CHAR(2) PRIMARY KEY
 );
 
-
-CREATE TABLE Parking.People(
-    PersonID INT IDENTITY(1,1) PRIMARY KEY,
-    LicensePlate VARCHAR(6) NOT NULL,
-    StateCode CHAR(2) NOT NULL FOREIGN KEY REFERENCES Parking.StateCodes(StateCode),
-    Email VARCHAR(100),
-    UNIQUE (StateCode, LicensePlate),
-    
-);
-
 CREATE TABLE Parking.PassTypes (
     PassType VARCHAR(2) PRIMARY KEY
 );
@@ -106,11 +96,9 @@ CREATE TABLE Parking.Tickets (
     FOREIGN KEY (LotID) REFERENCES Parking.Lots(LotID)
 );
 
-
-
-
-
-
+/*
+Populate tables
+*/
 
 INSERT INTO Parking.StateCodes (StateCode)
 VALUES
@@ -125,9 +113,7 @@ VALUES
     ('SD'), ('TN'), ('TX'), ('UT'), ('VT'),
     ('VA'), ('WA'), ('WV'), ('WI'), ('WY'), ('DC');
 
-
-    -- Sample insert for 100 people
-INSERT INTO Parking.People (LicensePlate, StateCode, Email)
+    INSERT INTO Parking.People (LicensePlate, StateCode, Email)
 VALUES
 ('ABC123', 'CA', 'john.doe1@example.com'),
 ('XYZ456', 'NY', 'jane.doe2@example.com'),
@@ -244,8 +230,7 @@ INSERT INTO Parking.PassTypes(PassType)
 VALUES
     ('A'), ('B'), ('C'), ('D'), ('W');
 
-
-    INSERT INTO Parking.PassTypeYears (PassType, YearOfValidity, Price)
+INSERT INTO Parking.PassTypeYears (PassType, YearOfValidity, Price)
 VALUES
 ('A', 2023, 200.00),
 ('B', 2023, 250.00),
@@ -269,7 +254,7 @@ INSERT INTO Parking.Passes (PassTypeYearID, PersonID, TimePurchased)
 SELECT
     pty.PassTypeYearID,
     v.PersonID,
-    DATEFROMPARTS(v.YearOfValidity, v.[Month], v.[Day])  -- or SYSDATETIMEOFFSET()
+    DATEFROMPARTS(v.YearOfValidity, v.[Month], v.[Day])
 FROM (
     VALUES
         ('A', 2023, 3, 14, 1),
@@ -383,7 +368,6 @@ FROM (
 INNER JOIN Parking.PassTypeYears pty
     ON v.PassType = pty.PassType AND v.YearOfValidity = pty.YearOfValidity;
 
-
 INSERT INTO Parking.Officers (FirstName, LastName, HashPassword, UserName)
 VALUES
 ('Jon', 'Fuller', 'fcec29142240d73631cb2e865ef2b8f245e8ea3a563904f021cee043c8ce2eee', 'Fullerj'),
@@ -397,7 +381,3 @@ VALUES
 ('Logan', 'Ramsey', 'e393429fc2718994855da77ba3b1aba67014972a28471b1fecb21fa2ba375e76', 'Ramseyl'),
 ('Peyton', 'Morris', 'ae087349bb953601482c9c52169257c0cb0371cbac3d921b5896a9aba8cc8a43', 'Morrisp'),
 ('Emerson', 'Clarke', '9faf9ee14d45246ab1c76cd60b5fb513a0975a5c04ad6d6f6bcb8bddc9b43105', 'Clarkee');
-
-
-
-

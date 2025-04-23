@@ -2,7 +2,7 @@ INSERT INTO Parking.Passes (PassTypeYearID, PersonID, TimePurchased)
 SELECT
     pty.PassTypeYearID,
     v.PersonID,
-    DATEFROMPARTS(v.YearOfValidity, v.[Month], v.[Day])  -- or SYSDATETIMEOFFSET()
+    DATEFROMPARTS(v.YearOfValidity, v.[Month], v.[Day])
 FROM (
     VALUES
         ('A', 2023, 3, 14, 1),
