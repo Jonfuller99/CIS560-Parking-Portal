@@ -112,6 +112,7 @@ CREATE TABLE Parking.Tickets (
 
 
 
+
 INSERT INTO Parking.StateCodes (StateCode)
 VALUES
     ('AL'), ('AK'), ('AZ'), ('AR'), ('CA'),
@@ -244,8 +245,13 @@ INSERT INTO Parking.PassTypes(PassType)
 VALUES
     ('A'), ('B'), ('C'), ('D'), ('W');
 
+    
+INSERT INTO Parking.LotTypes(LotType)
+VALUES
+    ('A'), ('B'), ('C'), ('D'), ('W');
 
-    INSERT INTO Parking.PassTypeYears (PassType, YearOfValidity, Price)
+
+INSERT INTO Parking.PassTypeYears (PassType, YearOfValidity, Price)
 VALUES
 ('A', 2023, 200.00),
 ('B', 2023, 250.00),
@@ -266,6 +272,28 @@ VALUES
 ('W', 2025, 0.00);
 
 
+
+INSERT INTO Parking.LotTypeYears (LotType, YearOfValidity, Fee)
+VALUES
+('A', 2023, 20.00),
+('B', 2023, 30.00),
+('C', 2023, 40.00),
+('D', 2023, 50.00),
+('W', 2023, 100.00),
+
+('A', 2024, 30.00),
+('B', 2024, 40.00),
+('C', 2024, 50.00),
+('D', 2024, 60.00),
+('W', 2024, 120.00),
+
+('A', 2025, 35.00),
+('B', 2025, 45.00),
+('C', 2025, 55.00),
+('D', 2025, 65.00),
+('W', 2025, 120.00);
+
+
 INSERT INTO Parking.Officers (FirstName, LastName, HashPassword, UserName)
 VALUES
 ('Jon', 'Fuller', 'fcec29142240d73631cb2e865ef2b8f245e8ea3a563904f021cee043c8ce2eee', 'Fullerj'),
@@ -282,4 +310,33 @@ VALUES
 
 
 
+INSERT INTO Parking.Lots (LotName, LotType)
+VALUES
+('West Lot', 'A'),
+('North-West Lot', 'A'),
+('South Lot', 'B'),
+('South-East Lot', 'B'),
+('East Lot', 'C'),
+('North-East Lot', 'C'),
+('North Lot', 'D'),
+('South-West Lot', 'W');
 
+
+
+INSERT INTO Parking.Accessibility (PassType, LotType)
+VALUES
+('A', 'A'),
+
+('B', 'A'),
+('B', 'B'),
+
+('C', 'A'),
+('C', 'B'),
+('C', 'C'),
+
+('D', 'A'),
+('D', 'B'),
+('D', 'C'),
+('D', 'D'),
+
+('W', 'W');
