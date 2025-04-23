@@ -17,7 +17,7 @@ exports.personLogin = async (req, res) => {
             //if person already has a status, remove it
             if (sessionModel.getSession(req.cookies.sessionId) != null) sessionModel.logoutSession(req.cookies.sessionId);
             const sessionId = uuidv4();
-            sessionModel.setSession(sessionId, 0); //person
+            sessionModel.setSession(sessionId, 0, rows[0].PersonID); //person
             res.json({ success: true, id: sessionId, state: 0 });
         } else {
             res.status(401).json({ success: false, message: 'Invalid license info' });
@@ -44,7 +44,7 @@ exports.officerLogin = async (req, res) => {
             //if person already has a status, remove it
             if (sessionModel.getSession(req.cookies.sessionId) != null) sessionModel.logoutSession(req.cookies.sessionId);
             const sessionId = uuidv4();
-            sessionModel.setSession(sessionId, 1); //officer
+            sessionModel.setSession(sessionId, 1, rows[0].OfficerID); //officer
             res.json({ success: true, id: sessionId, state: 1 });
         } else {
             res.status(401).json({ success: false, message: 'Invalid officer credentials' });
@@ -53,6 +53,13 @@ exports.officerLogin = async (req, res) => {
         res.status(500).json({ error: err.message });
     } 
 };
+
+exports.logout = async (req, res) => {
+    if (sessionModel.getSession(req.cookies.sessionId) != null) {
+        sessionModel.logoutSession(req.cookies.sessionId);
+    }
+    
+}
 
 //hash function
 async function sha256Hash(str) {

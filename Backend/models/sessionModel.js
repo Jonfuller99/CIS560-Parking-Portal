@@ -2,7 +2,7 @@ const sessions = new Map();
 
 const timerMS = 3600000;
 
-function setSession(id, type) {
+function setSession(id, type, dataID) {
     // If there's already a session, clear its existing timer
     if (sessions.has(id)) {
         clearTimeout(sessions.get(id).timeout);
@@ -13,8 +13,7 @@ function setSession(id, type) {
         sessions.delete(id);
     }, timerMS);
 
-    sessions.set(id, { type, timeout });
-    console.log(sessions.entries());
+    sessions.set(id, { type, dataID, timeout, });
 }
 
 function getSession(id) {
@@ -24,7 +23,7 @@ function getSession(id) {
         const timeout = setTimeout(() => {
             sessions.delete(id);
         }, timerMS);
-        sessions.set(id, { type: session.type , timeout });
+        sessions.set(id, { type: session.type, dataID: session.dataID , timeout });
     }
     return session ? session.type : null;
 }
