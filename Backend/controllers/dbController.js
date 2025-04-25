@@ -24,5 +24,22 @@ exports.findTickets = async (req, res) => {
             res.status(500).json({error: err.message})
         }
     }
-    
+}
+
+
+exports.getPasses = async (req, res) => {
+    const session = sessionModel.getSession(req.cookies.sessionId);
+        if (session && session.type == 0) {
+        try {
+            console.log(session.dataID);
+            const [rows] = await db.query('EXEC Parking.GetPasses @PersonID=:personID', {
+                replacements: {
+                    personID: session.dataID
+                }
+            });
+            res.json({ rows })
+        } catch (err) {
+            res.status(500).json({error: err.message})
+        }
+    }
 }
