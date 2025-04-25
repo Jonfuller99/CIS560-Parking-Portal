@@ -9,3 +9,20 @@ exports.getCodes = async (req, res) => {
         res.status(500).json({error: err.message})
     }
 }
+
+exports.findTickets = async (req, res) => {
+    const session = sessionModel.getSession(req.cookies.sessionId);
+        if (session && session.type == 0) {
+        try {
+            const [rows] = await db.query('EXEC Parking.FindTickets @PersonID=:personID', {
+                replacements: {
+                    personID: session.dataID
+                }
+            });
+            res.json({ rows })
+        } catch (err) {
+            res.status(500).json({error: err.message})
+        }
+    }
+    
+}

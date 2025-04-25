@@ -1,4 +1,5 @@
 const path = require('path');
+const sessionModel = require('../models/sessionModel');
 
 //homepage
 exports.homepage = async (req, res) => {
@@ -43,7 +44,8 @@ exports.officerLogin = async (req, res) => {
 
 //person page
 exports.personPage = async (req, res) => {
-    if (sessionModel.getSession(req.cookies.sessionId) == 0) {
+    const session = sessionModel.getSession(req.cookies.sessionId);
+        if (session && session.type == 0) {
         const filePath = path.join(__dirname, '../../Frontend/PersonPage/PersonPage_logic.js');
         try {
             res.sendFile(filePath);
@@ -57,7 +59,8 @@ exports.personPage = async (req, res) => {
 
 //officer page
 exports.officerPage = async (req, res) => {
-    if (sessionModel.getSession(req.cookies.sessionId) == 0) {
+    const session = sessionModel.getSession(req.cookies.sessionId);
+        if (session && session.type == 1) {
         const filePath = path.join(__dirname, '../../Frontend/OfficerPage/OfficerPage_logic.js');
         try {
             res.sendFile(filePath);

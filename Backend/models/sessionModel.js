@@ -13,7 +13,7 @@ function setSession(id, type, dataID) {
         sessions.delete(id);
     }, timerMS);
 
-    sessions.set(id, { type, dataID, timeout, });
+    sessions.set(id, { type, dataID, timeout});
 }
 
 function getSession(id) {
@@ -25,7 +25,7 @@ function getSession(id) {
         }, timerMS);
         sessions.set(id, { type: session.type, dataID: session.dataID , timeout });
     }
-    return session ? session.type : null;
+    return session ? session : null;
 }
 
 function logoutSession(id) {

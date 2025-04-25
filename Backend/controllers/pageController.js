@@ -25,7 +25,8 @@ exports.buyPass = async (req, res) => {
 
 //person login
 exports.personLogin = async (req, res) => {
-    if (sessionModel.getSession(req.cookies.sessionId) == 0) {
+    const session = sessionModel.getSession(req.cookies.sessionId);
+    if (session && session.type == 0) {
         res.redirect('/person-page');
     } else {
         const filePath = path.join(__dirname, '../../Frontend/PersonLogin/PersonLogin.html');
@@ -40,7 +41,8 @@ exports.personLogin = async (req, res) => {
 
 //officer login
 exports.officerLogin = async (req, res) => {
-    if (sessionModel.getSession(req.cookies.sessionId) == 1) {
+    const session = sessionModel.getSession(req.cookies.sessionId);
+    if (session && session.type == 1) {
         res.redirect('/officer-page');
     } else {
         const filePath = path.join(__dirname, '../../Frontend/OfficerLogin/OfficerLogin.html');
@@ -55,7 +57,8 @@ exports.officerLogin = async (req, res) => {
 
 //person page
 exports.personPage = async (req, res) => {
-    if (sessionModel.getSession(req.cookies.sessionId) == 0) { //if person
+    const session = sessionModel.getSession(req.cookies.sessionId);
+    if (session && session.type == 0) {
         const filePath = path.join(__dirname, '../../Frontend/PersonPage/PersonPage.html');
         try {
             res.sendFile(filePath);
@@ -70,7 +73,8 @@ exports.personPage = async (req, res) => {
 
 //officer page
 exports.officerPage = async (req, res) => {
-    if (sessionModel.getSession(req.cookies.sessionId) == 1) { //if officer
+    const session = sessionModel.getSession(req.cookies.sessionId);
+    if (session && session.type == 1) {
         const filePath = path.join(__dirname, '../../Frontend/OfficerPage/OfficerPage.html');
         try {
             res.sendFile(filePath);
