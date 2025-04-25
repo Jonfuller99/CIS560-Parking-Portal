@@ -16,7 +16,6 @@ exports.buyPass = async (req, res) => {
     const filePath = path.join(__dirname, '../../Frontend/BuyPassPage/BuyPassPage_logic.js');
     try {
         res.sendFile(filePath);
-        console.log("At buy pass")
     } catch (err) {
         res.status(500).send('Error loading js');
     }

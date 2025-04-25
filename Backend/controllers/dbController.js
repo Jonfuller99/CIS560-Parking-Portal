@@ -60,3 +60,28 @@ exports.payTicket = async (req, res) => {
         }
     }
 }
+
+exports.getPassPrices = async (req, res) => {
+    try {
+        const [rows] = await db.query('SELECT P.PassType, P.Price FROM Parking.PassTypeYears P WHERE P.YearOfValidity = Year(SYSDATETIME())');
+        res.json({ rows })
+    } catch (err) {
+        res.status(500).json({error: err.message})
+    }
+}
+
+exports.buyPass = async (req, res) => {
+    const { plate, stateCode, passType } = req.body;
+    try {
+        await db.query('EXEC Parking.BuyPass @LicensePlate=:plate, @StateCode=:stateCode, @PassType=:passType', {
+            replacements: {
+                plate,
+                stateCode,
+                passType
+            }
+        })
+        res.sendStatus(200);
+    } catch (err) {
+        res.status(500).json({error: err.message})
+    }
+}

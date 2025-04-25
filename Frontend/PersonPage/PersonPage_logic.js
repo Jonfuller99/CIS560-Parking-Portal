@@ -3,7 +3,6 @@ fetch('/db/get-passes')
         return res.json();
     })
     .then(data => {
-        console.log(data.rows);
         const passes = document.getElementById('passes');
         if (data.rows.length == 0) {
             const passDisplay = document.createElement("div");
@@ -26,7 +25,6 @@ fetch('/db/find-tickets')
         return res.json();
     })
     .then(data => {
-        console.log(data.rows);
         const tableDiv = document.getElementById('tickets-table');
         if (data.rows.length == 0) {
             const ticketsDisplay = document.createElement("div");

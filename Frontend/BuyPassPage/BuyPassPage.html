@@ -8,25 +8,19 @@
         <div class="top-bar"></div>
         <h1>Buy Passes</h1>
         <div>
-            <button>pass 1</button>
+            <input id="plate" type="text" placeholder="License Plate">
         </div>
         <div>
-            <button>pass 2</button>
+            <select id="state-code" name="State Code"></select>
         </div>
-        <div>
-            <button>pass 3</button>
-        </div>
-        <div>
-            <button>pass 4</button>
-        </div>
-        <div>
-            <button>pass 5</button>
-        </div>
+        <p class="red-text" id="purchase-text"></p>
+        <table id="pass-table" class="pass-table"></table>
         <div>
             <a href="/">
                 <button class="big-button">Back to Homepage</button>
             </a>
         </div>
+        <script src="/js/buy-pass"></script>
     </body>
 
 </html>
