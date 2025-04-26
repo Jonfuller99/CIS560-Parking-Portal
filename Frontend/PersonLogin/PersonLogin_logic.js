@@ -45,6 +45,7 @@ async function login() {
             }
         })
         .catch(error => {
+            document.getElementById('login-text').textContent = "No records associated with Person";
             console.error('Fetch error:', error); // Handle errors
         });
 

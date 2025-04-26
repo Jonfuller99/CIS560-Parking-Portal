@@ -23,6 +23,7 @@ async function login() {
                 document.cookie = `sessionId=${data.id}; path=/; max-age=3600; secure; samesite=strict`;
                 window.location.href = '/officer-page';
             } else {
+                document.getElementById('login-text').textContent = "Invalid Officer Credentials";
                 console.log(data.message);
             }
         })
