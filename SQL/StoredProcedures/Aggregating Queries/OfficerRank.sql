@@ -18,10 +18,10 @@ BEGIN
         RIGHT JOIN Parking.Officers O ON O.OfficerID = T.OfficerID
             AND MONTH(T.TimeIssued) = @Month
             AND YEAR(T.TimeIssued) = @Year
-    GROUP BY O.OfficerID, O.LastName, O.FirstName
-    ORDER BY OfficerRank
+    GROUP BY T.OfficerID, O.LastName, O.FirstName
+    ORDER BY OfficerRank, LastName, FirstName
 END;
 
 GO
 
-EXEC Parking.OfficerRank @Month = 5, @Year = 2025;
+EXEC Parking.OfficerRank @Month = 4, @Year = 2025;
