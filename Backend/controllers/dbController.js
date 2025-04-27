@@ -85,3 +85,44 @@ exports.buyPass = async (req, res) => {
         res.status(500).json({error: err.message})
     }
 }
+
+exports.giveTicket = async (req, res) => {
+    const { plate, stateCode, lotName } = req.body;
+    const session = sessionModel.getSession(req.cookies.sessionId);
+    if (session && session.type == 1) {
+        try {
+            const [checkRows] = await db.query('EXEC Parking.CheckTicket @LotName=:lotName, @LicensePlate=:plate, @StateCode=:stateCode', {
+                replacements: {
+                    lotName,
+                    plate,
+                    stateCode
+                }
+            });
+            if (checkRows.length == 0) {
+                res.json({ticketGiven: false})
+            } else {
+                await db.query('EXEC Parking.GiveTicket @LotName=:lotName, @LicensePlate=:plate, @StateCode=:stateCode, @OfficerId=:officerId', {
+                    replacements: {
+                        lotName,
+                        plate,
+                        stateCode,
+                        officerId: session.dataID
+                    }
+                });
+                res.json({ticketGiven: true, ticketFee: checkRows[0].Fee})
+            }
+        } catch (err) {
+            res.status(500).json({error: err.message})
+        }
+    }
+}
+
+exports.getLots = async (req, res) => {
+    try {
+        const [rows] = await db.query('SELECT * FROM Parking.Lots');
+        res.json({ rows })
+    } catch (err) {
+        res.status(500).json({error: err.message})
+    }
+    
+}

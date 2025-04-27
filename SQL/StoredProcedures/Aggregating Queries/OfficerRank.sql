@@ -23,5 +23,3 @@ BEGIN
 END;
 
 GO
-
-EXEC Parking.OfficerRank @Month = 4, @Year = 2025;

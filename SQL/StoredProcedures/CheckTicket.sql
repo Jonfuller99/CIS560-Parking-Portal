@@ -25,4 +25,3 @@ END;
 
 GO
 
-EXEC Parking.CheckTicket @LotName='West Lot', @LicensePlate='AYE123', @StateCode='KS';
