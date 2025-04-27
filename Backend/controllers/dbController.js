@@ -101,7 +101,13 @@ exports.giveTicket = async (req, res) => {
             if (checkRows.length == 0) {
                 res.json({ticketGiven: false})
             } else {
-                await db.query('EXEC Parking.GiveTicket @LotName=:lotName, @LicensePlate=:plate, @StateCode=:stateCode, @OfficerId=:officerId', {
+                await db.query('EXEC Parking.CreatePerson @LicensePlate=:plate, @StateCode=:stateCode', {
+                    replacements: {
+                        plate,
+                        stateCode
+                    }
+                })
+                await db.query('EXEC Parking.GiveTicket @LotName=:lotName, @LicensePlate=:plate, @StateCode=:stateCode, @OfficerID=:officerId', {
                     replacements: {
                         lotName,
                         plate,
