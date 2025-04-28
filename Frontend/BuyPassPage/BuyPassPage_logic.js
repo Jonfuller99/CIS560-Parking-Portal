@@ -29,6 +29,9 @@ fetch('/db/get-pass-prices')
         thPrice.textContent = "Price";
         thead.appendChild(thPrice)
 
+        const thBuy = document.createElement("th");
+        thead.appendChild(thBuy)
+
         passTable.appendChild(thead);
 
         data.rows.forEach((row) => {
@@ -44,7 +47,7 @@ fetch('/db/get-pass-prices')
                 tr.appendChild(tdPrice)
 
                 const tdBuy = document.createElement("td");
-                tdBuy.style.border = "none";
+                // tdBuy.style.border = "none";
                 const buyButton = document.createElement("button");
                 buyButton.setAttribute("passType", row.PassType);
                 buyButton.textContent = "BUY";

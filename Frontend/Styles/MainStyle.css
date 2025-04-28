@@ -60,59 +60,139 @@ a {
 .top-bar {
     background-color: purple;
     width: 100%;
-    height: 50px;
+    height: 60px;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
     box-shadow:
-        0 2px 5px rgba(0, 0, 0, 0.2), 
-        0 1px 0 rgba(255, 255, 255, 0.1) inset; 
+        0 2px 5px rgba(0, 0, 0, 0.2),
+        0 1px 0 rgba(255, 255, 255, 0.1) inset;
     border-bottom: 3px solid rgba(0, 0, 0, 0.15);
 }
 
-.tickets-table th {
-    border: 1px solid black;
-    width: 200px;
-}
 
-.tickets-table td {
-    border: 1px solid black;
-    text-align: center;
-    height: 40px;
-}
 
 .pay-button {
     height: 40px;
     padding: 0 20px 0 20px;
-    background-color: #33dd5b;
-    border-radius: 10px;
+    background-color: #28a745;
+    border-radius: 5px;
     cursor: pointer;
+    color: white;
 }
 
 .pay-button:hover {
     background-color: #019718; 
 }
-
-.pass-table {
-    margin: 0 0 30px 0;
+/* Table Styles */
+table {
+    border-collapse: collapse;
+    margin: 20px 0;
+    width: 90%;
+    max-width: 1000px;
+    background: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
 }
 
-.pass-table td {
-    border: 1px solid black;
+th, td {
+    padding: 15px;
     text-align: center;
-    height: 30px;
-    width: 70px;
+    border-bottom: 1px solid #ddd;
+    font-size: 16px;
+    
 }
 
-.pass-table th {
-    border: 1px solid black;
-    text-align: center;
-    height: 30px;
-    width: 70px;
+th {
+    background-color: #007bff;
+    color: white;
 }
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+} 
+
+ .tickets-table th, .tickets-table td,
+.pass-table th, .pass-table td {
+    border: none; 
+}
+
+
 
 .red-text {
     color: red;
     height: 30px;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+
+
+
+.officer-page {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 90%;
+    max-width: 1200px;
+    margin: 100px auto 0; /* Top margin to clear the top bar */
+}
+
+.left-side-officer {
+    flex: 1;
+}
+
+.right-side-officer {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end; /* Push table to the right */
+}
+
+.leaderboard {
+    border-collapse: collapse;
+    width: 80%;
+    max-width: 400px;
+    background: white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.leaderboard th, .leaderboard td {
+    padding: 15px;
+    text-align: center;
+    font-size: 16px;
+    border-bottom: 1px solid #ddd;
+}
+
+.leaderboard th {
+    background-color: #007bff;
+    color: white;
+}
+
+.leaderboard tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.leaderboard tr:hover {
+    background-color: #f1f1f1;
 }

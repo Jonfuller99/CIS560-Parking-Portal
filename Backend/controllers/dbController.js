@@ -10,6 +10,16 @@ exports.getCodes = async (req, res) => {
     }
 }
 
+exports.getLots = async (req, res) => {
+    try {
+        const [rows] = await db.query('SELECT * FROM Parking.Lots');
+        res.json({ rows })
+    } catch (err) {
+        res.status(500).json({error: err.message})
+    }
+}
+
+
 exports.findTickets = async (req, res) => {
     const session = sessionModel.getSession(req.cookies.sessionId);
         if (session && session.type == 0) {
@@ -78,6 +88,24 @@ exports.buyPass = async (req, res) => {
                 plate,
                 stateCode,
                 passType
+            }
+        })
+        res.sendStatus(200);
+    } catch (err) {
+        res.status(500).json({error: err.message})
+    }
+}
+
+
+exports.giveTicket = async (req, res) => {
+    const { lotName, plate, stateCode, officerID } = req.body;
+    try {
+        await db.query('EXEC Parking.GiveTicket @LotName=:lotName, @LicensePlate=:plate, @StateCode=:stateCode, @OfficerID=:officerID', {
+            replacements: {
+                lotName,
+                plate,
+                stateCode,
+                officerID
             }
         })
         res.sendStatus(200);

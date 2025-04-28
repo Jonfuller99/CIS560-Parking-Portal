@@ -3,7 +3,9 @@ const router = express.Router();
 const dbController = require('../controllers/dbController');
 
 router.get('/get-codes', dbController.getCodes);
+router.get('/get-lots', dbController.getLots);
 router.get('/find-tickets', dbController.findTickets);
+router.post('/give-ticket', dbController.giveTicket);
 router.get('/get-passes', dbController.getPasses);
 router.post('/pay-ticket', dbController.payTicket);
 router.get('/get-pass-prices', dbController.getPassPrices);
