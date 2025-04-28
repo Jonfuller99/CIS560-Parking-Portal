@@ -83,7 +83,7 @@ function buyClick(event) {
             if (res.ok) {
                 document.getElementById('purchase-text').textContent = `${passType} Pass was successfully purchased`;
             } else {
-                document.getElementById('purchase-text').textContent = "Error purchasing pass";
+                document.getElementById('purchase-text').textContent = "Ticket already owned";
             }
         });
         
