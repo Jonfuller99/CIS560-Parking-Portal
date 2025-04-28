@@ -44,9 +44,8 @@ exports.officerLogin = async (req, res) => {
             //if person already has a status, remove it
             if (sessionModel.getSession(req.cookies.sessionId) != null) sessionModel.logoutSession(req.cookies.sessionId);
             const sessionId = uuidv4();
-            const officerID = rows[0].OfficerID;
-            sessionModel.setSession(sessionId, 1, officerID); //officer
-            res.json({ success: true, id: sessionId, state: 1, officerId: officerID});
+            sessionModel.setSession(sessionId, 1,  rows[0].OfficerID); //officer
+            res.json({ success: true, id: sessionId, state: 1 });
         } else {
             res.status(401).json({ success: false, message: 'Invalid officer credentials' });
         }

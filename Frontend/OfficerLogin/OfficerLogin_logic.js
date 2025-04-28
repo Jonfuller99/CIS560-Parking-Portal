@@ -21,7 +21,6 @@ async function login() {
             // Use the data
             if (data.success) {
                 document.cookie = `sessionId=${data.id}; path=/; max-age=3600; secure; samesite=strict`;
-                document.cookie = `officerId=${data.officerId}; path=/; max-age=3600; secure; samesite=strict`;
                 window.location.href = '/officer-page';
             } else {
                 document.getElementById('login-text').textContent = "Invalid Officer Credentials";
