@@ -27,22 +27,8 @@ fetch('/db/get-lots')
 })
 
 
-function getCookieValue(name) {
-    const cookies = document.cookie.split('; ');
-    for (let cookie of cookies) {
-        const [key, value] = cookie.split('=');
-        if (key === name) {
-            return value;
-        }
-    }
-    return null;
-}
 
-// Example usage:
-const officerId = parseInt(getCookieValue('officerId'));
-
-
-function giveTicketClick(event) {
+function giveTicketClick() {
     if (document.getElementById("plate").value == "") {
         document.getElementById('purchase-text').textContent = "Must input a License Plate and State Code";
     } else {
@@ -55,20 +41,27 @@ function giveTicketClick(event) {
                 lotName: document.getElementById("lots").value,
                 plate: document.getElementById("plate").value.toUpperCase(),
                 stateCode: document.getElementById("state-code").value,
-                officerID: officerId
             })
             
         }
 
         fetch('/db/give-ticket', req)
         .then(res => {
-            if (res.ok) {
-                document.getElementById('purchase-text').textContent = "Ticket assigned";
-            } else {
-                document.getElementById('purchase-text').textContent = "Error assigning ticket";
+            return res.json();
+            // if (res.ok) {
+            //     document.getElementById('purchase-text').textContent = "Ticket assigned";
+            // } else {
+            //     document.getElementById('purchase-text').textContent = "Error assigning ticket";
+            // }
+        })
+        .then(data => {
+            if (data.ticketGiven) {
+                document.getElementById('purchase-text').textContent = `Ticket assigned - Fee: $${data.ticketFee.toFixed(2)}`;
             }
-        });
+            else {
+                document.getElementById('purchase-text').textContent = "No ticket available";
+            }
+        })      
         
     }
 }
-document.getElementById('submit-ticket-btn').addEventListener('click', giveTicketClick);

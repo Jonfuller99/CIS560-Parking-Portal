@@ -19,11 +19,12 @@ BEGIN
           AND lty.YearOfValidity = YEAR(SYSDATETIME())
     )
     BEGIN
-        INSERT INTO Parking.Tickets (PersonID, OfficerID, LotID, TimeIssued, Fee)
-        SELECT p.PersonID, @OfficerID, l.LotID, SYSDATETIMEOFFSET(), lty.Fee
+        INSERT INTO Parking.Tickets (PersonID, OfficerID, LotID, TimeIssued, Fee, LateCharge)
+        SELECT p.PersonID, @OfficerID, l.LotID, SYSDATETIMEOFFSET(), lty.Fee, 0
         FROM Parking.People p 
         JOIN Parking.Lots l ON l.LotName = @LotName
         JOIN Parking.LotTypeYears lty ON lty.LotType = l.LotType
         WHERE p.StateCode = @StateCode AND p.LicensePlate = @LicensePlate AND lty.YearOfValidity = YEAR(SYSDATETIME())
     END
 END;
+

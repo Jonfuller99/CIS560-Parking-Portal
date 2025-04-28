@@ -99,6 +99,7 @@ exports.buyPass = async (req, res) => {
 exports.giveTicket = async (req, res) => {
     const { plate, stateCode, lotName } = req.body;
     const session = sessionModel.getSession(req.cookies.sessionId);
+    console.log("1");
     if (session && session.type == 1) {
         try {
             const [checkRows] = await db.query('EXEC Parking.CheckTicket @LotName=:lotName, @LicensePlate=:plate, @StateCode=:stateCode', {
@@ -109,14 +110,17 @@ exports.giveTicket = async (req, res) => {
                 }
             });
             if (checkRows.length == 0) {
+                console.log("2");
                 res.json({ticketGiven: false})
             } else {
+                console.log("3");
                 await db.query('EXEC Parking.CreatePerson @LicensePlate=:plate, @StateCode=:stateCode', {
                     replacements: {
                         plate,
                         stateCode
                     }
                 })
+                console.log("4");
                 await db.query('EXEC Parking.GiveTicket @LotName=:lotName, @LicensePlate=:plate, @StateCode=:stateCode, @OfficerID=:officerId', {
                     replacements: {
                         lotName,
@@ -125,9 +129,11 @@ exports.giveTicket = async (req, res) => {
                         officerId: session.dataID
                     }
                 });
+                console.log("5");
                 res.json({ticketGiven: true, ticketFee: checkRows[0].Fee})
             }
         } catch (err) {
+            console.log("6");
             res.status(500).json({error: err.message})
         }
     }
