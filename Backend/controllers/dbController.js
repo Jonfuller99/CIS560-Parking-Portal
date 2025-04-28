@@ -55,7 +55,7 @@ exports.getPasses = async (req, res) => {
 
 exports.payTicket = async (req, res) => {
     const session = sessionModel.getSession(req.cookies.sessionId);
-        if (session && session.type == 0) {
+    if (session && session.type == 0) {
         try {
             console.log(req.body.ticketId);
             const [rows] = await db.query('EXEC Parking.PayTicket @TicketID=:ticketID, @PersonID=:personID', {
@@ -98,18 +98,21 @@ exports.buyPass = async (req, res) => {
 
 
 exports.giveTicket = async (req, res) => {
-    const { lotName, plate, stateCode, officerID } = req.body;
-    try {
-        await db.query('EXEC Parking.GiveTicket @LotName=:lotName, @LicensePlate=:plate, @StateCode=:stateCode, @OfficerID=:officerID', {
-            replacements: {
-                lotName,
-                plate,
-                stateCode,
-                officerID
-            }
-        })
-        res.sendStatus(200);
-    } catch (err) {
-        res.status(500).json({error: err.message})
+    const session = sessionModel.getSession(req.cookies.sessionId);
+    if (session && session.type == 1) {
+        const { lotName, plate, stateCode } = req.body;
+        try {
+            await db.query('EXEC Parking.GiveTicket @LotName=:lotName, @LicensePlate=:plate, @StateCode=:stateCode, @OfficerID=:officerID', {
+                replacements: {
+                    lotName,
+                    plate,
+                    stateCode,
+                    officerID: sessionId.dataID
+                }
+            })
+            res.sendStatus(200);
+        } catch (err) {
+            res.status(500).json({error: err.message})
+        }
     }
 }
