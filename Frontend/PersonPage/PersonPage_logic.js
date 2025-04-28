@@ -77,7 +77,7 @@ fetch('/db/find-tickets')
                 const tdLotType = document.createElement("td");
                 tdLotType.textContent = row.LotType;
                 tr.appendChild(tdLotType);
-
+        
                 const tdTimeIssued = document.createElement("td");
                 tdTimeIssued.textContent = row.TimeIssued.replace(/(\d+)-0?(\d+)-0?(\d+)T(.*)\..*/g, "$2/$3/$1 - $4");
                 tr.appendChild(tdTimeIssued);
@@ -107,7 +107,7 @@ fetch('/db/find-tickets')
                 ticketsTable.appendChild(tr);
             })
             tableDiv.appendChild(ticketsTable);
-        }s
+        }
         
     })
 

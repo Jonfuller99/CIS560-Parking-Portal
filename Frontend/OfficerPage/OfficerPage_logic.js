@@ -31,6 +31,7 @@ fetch('/db/get-lots')
 })
 
 function updateLeaderboard() {
+    document.getElementById('date').innerHTML = `${month}/${year}`;
     const req = {
         method: 'POST',
             headers: {
@@ -146,7 +147,7 @@ function populateTable(dataArray, regexArray, isCurrencyArray, tableId) {
             if (isCurrencyArray[i]){
                 td.textContent = `$${obj[key].toFixed(2)}`;
             } else {
-                td.textContent = obj[key].toString().replace(regexArray[i].regex, regexArray[i].replace);
+                td.textContent = obj[key] ? obj[key].toString().replace(regexArray[i].regex, regexArray[i].replace): obj[key];
             }
             
             row.appendChild(td);
@@ -160,5 +161,24 @@ function populateTable(dataArray, regexArray, isCurrencyArray, tableId) {
     table.appendChild(tbody);
 }
 
+function dateDown() {
+    if (month == 1) {
+        month = 12;
+        year--;
+    } else {
+        month--;
+    }
+    updateLeaderboard();
+}
+
+function dateUp() {
+    if (month == 12) {
+        month = 1;
+        year++;
+    } else {
+        month++;
+    }
+    updateLeaderboard();
+}
 
 updateLeaderboard();

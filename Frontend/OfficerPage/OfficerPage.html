@@ -4,19 +4,17 @@
         <title>Officer Page</title>
         <link rel="stylesheet" href="/style">
     </head>
-    <body>
+    <body class="stable-body">
         <div class="top-bar"></div>
         <div class="officer-page">
-            <div>
+            <div class="assign-ticket">
                 <h1>Assign Ticket</h1>
 
                 <div>
-                    <input id="plate" type="text" placeholder="License Plate">
+                    <input class="input" id="plate" type="text" placeholder="License Plate">
                 </div>
-                <div>
-                    <select id="state-code" name="State Code"></select>
-                    <select id="lots" name="Lots"></select>
-                </div>
+                    <select class="code-input" id="state-code" name="State Code"></select>
+                    <select class="input" id="lots" name="Lots"></select>
                 <p class="red-text" id="purchase-text"></p>
                 <div>
                     <button id="submit-ticket-btn" onclick="giveTicketClick()" class="login-btn">Submit Ticket</button>
@@ -27,13 +25,17 @@
                         <button class="big-button">Back to Homepage</button>
                     </a>
                 </div>
-
-
             </div>
 
             <div class="right-side-officer">
-
-                <table id="leaderboard" class="leaderboard"></table>
+                <div class="leaderboard-container">
+                    <h1>Leaderboard</h1>
+                    <div class="date-input">
+                        <button class="arrow-button" onclick="dateDown()">&lt;</button><div id="date" class="date"></div><button class="arrow-button" onclick="dateUp()">&gt;</button>
+                    </div>
+                    <table id="leaderboard" class="leaderboard"></table>
+                </div>
+                
             </div>
             
         </div>

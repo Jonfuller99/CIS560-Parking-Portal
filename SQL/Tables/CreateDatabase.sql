@@ -1479,4 +1479,3 @@ FROM (
 ) AS v(OfficerID, PersonID, LotID, TimeIssued, TimePaid)
     INNER JOIN Parking.Lots l ON l.LotID = v.LotID
     INNER JOIN Parking.LotTypeYears lty ON lty.LotType = l.LotType AND lty.YearOfValidity = YEAR(v.TimeIssued);
-

@@ -1,4 +1,4 @@
-body {
+.centered-body {
     font-family: sans-serif; 
     background-color: #f4f4f4; 
     display: flex;
@@ -7,7 +7,18 @@ body {
     justify-content: center; 
     min-height: 100vh; 
     margin: 0; 
-    padding-top: 20px;
+    padding-top: 100px;
+    box-sizing: border-box;
+}
+
+.stable-body {
+    font-family: sans-serif; 
+    background-color: #f4f4f4; 
+    display: flex;
+    justify-content: center; 
+    min-height: 100vh; 
+    margin: 0; 
+    padding-top: 100px;
     box-sizing: border-box;
 }
 
@@ -19,6 +30,9 @@ h1 {
 
 div {
     margin-bottom: 1rem; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .big-button {
@@ -129,8 +143,6 @@ tr:hover {
     border: none; 
 }
 
-
-
 .red-text {
     color: red;
     height: 30px;
@@ -144,9 +156,6 @@ input, select {
     border-radius: 8px;
     font-size: 16px;
 }
-
-
-
 
 .officer-page {
     display: flex;
@@ -170,11 +179,12 @@ input, select {
 .leaderboard {
     border-collapse: collapse;
     width: 80%;
-    max-width: 800px;
+    max-width: 1000px;
     background: white;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     border-radius: 12px;
     overflow: hidden;
+    margin: 0;
 }
 
 .leaderboard th, .leaderboard td {
@@ -195,4 +205,59 @@ input, select {
 
 .leaderboard tr:hover {
     background-color: #f1f1f1;
+}
+
+.date {
+    width: 80px;
+    text-align: center;
+    margin: 0;
+    font-size: 20px;
+}
+
+.arrow-button{
+    height: 30px;
+    width: 30px;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.date-input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.leaderboard-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.input {
+    width: 200px;
+    display: block;
+    margin: 20px 0 0 0;
+}
+
+.code-input {
+    width: 75px;
+    display: block;
+    margin: 20px 0 0 0;
+}
+
+.assign-ticket {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.red-text {
+    width: 350px;
+    text-align: center;
+}
+
+.pass-table {
+    margin-bottom: 40px;
 }
