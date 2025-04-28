@@ -17,9 +17,11 @@ BEGIN
 
     SELECT lty.LotTypeYearID, lty.Fee
     FROM Parking.People p 
-    JOIN Parking.Passes pa ON pa.PersonID = p.PersonID
-    JOIN Parking.PassTypeYears pty ON pty.PassTypeYearID = pa.PassTypeYearID
+    JOIN Parking.Passes pa ON pa.PersonID = p.PersonID AND p.LicensePlate = @LicensePlate AND p.StateCode = @StateCode
+    JOIN Parking.PassTypeYears pty ON pty.PassTypeYearID = pa.PassTypeYearID AND pty.YearOfValidity = YEAR(SYSDATETIME())
     JOIN Parking.Accessibility a ON a.PassType = pty.PassType
     JOIN Parking.LotTypeYears lty ON lty.LotType = a.LotType AND lty.YearOfValidity = YEAR(SYSDATETIME())
-    WHERE p.LicensePlate = @LicensePlate AND p.StateCode = @StateCode
 END;
+
+GO
+

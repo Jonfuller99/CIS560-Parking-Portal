@@ -10,5 +10,7 @@ router.get('/get-passes', dbController.getPasses);
 router.post('/pay-ticket', dbController.payTicket);
 router.get('/get-pass-prices', dbController.getPassPrices);
 router.post('/buy-pass', dbController.buyPass);
+router.post('/give-ticket', dbController.giveTicket);
+router.get('get-lots', dbController.getLots);
 
 module.exports = router;
