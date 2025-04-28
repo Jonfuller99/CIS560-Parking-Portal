@@ -29,7 +29,7 @@ BEGIN
             AND MONTH(T.TimeIssued) = @Month
             AND YEAR(T.TimeIssued) = @Year
     GROUP BY T.OfficerID, O.LastName, O.FirstName, O.OfficerID
-    ORDER BY OfficerRank, LastName, FirstName
+    ORDER BY OfficerRank, LastName, FirstName, O.OfficerID
 END;
 
 GO

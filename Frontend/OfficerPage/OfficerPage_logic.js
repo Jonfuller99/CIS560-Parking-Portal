@@ -98,7 +98,11 @@ function giveTicketClick() {
             else {
                 document.getElementById('purchase-text').textContent = "No ticket available";
             }
-        })      
+        })  
+        .catch(err => {
+            document.getElementById('purchase-text').textContent = "No ticket available";
+            console.log(err.error);
+        })   
     }
 }
 

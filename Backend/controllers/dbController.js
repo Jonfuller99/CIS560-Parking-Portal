@@ -117,7 +117,7 @@ exports.giveTicket = async (req, res) => {
                         stateCode
                     }
                 })
-                const [rows] = await db.query('EXEC Parking.GiveTicket @LotName=:lotName, @LicensePlate=:plate, @StateCode=:stateCode, @OfficerID=:officerId', {
+                await db.query('EXEC Parking.GiveTicket @LotName=:lotName, @LicensePlate=:plate, @StateCode=:stateCode, @OfficerID=:officerId', {
                     replacements: {
                         lotName,
                         plate,
@@ -125,7 +125,7 @@ exports.giveTicket = async (req, res) => {
                         officerId: session.dataID
                     }
                 });
-                res.json({ticketGiven: rows.length > 0, ticketFee: checkRows[0].Fee})
+                res.json({ticketGiven: true, ticketFee: checkRows[0].Fee})
             }
         } catch (err) {
             res.status(500).json({error: err.message})
