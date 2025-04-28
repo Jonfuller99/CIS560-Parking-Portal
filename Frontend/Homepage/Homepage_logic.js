@@ -1,5 +1,3 @@
-console.log("js found");
-
 async function logout() {
     const req = {
         method: 'POST',

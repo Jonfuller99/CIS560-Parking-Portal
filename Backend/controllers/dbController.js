@@ -10,6 +10,16 @@ exports.getCodes = async (req, res) => {
     }
 }
 
+exports.getLots = async (req, res) => {
+    try {
+        const [rows] = await db.query('SELECT * FROM Parking.Lots');
+        res.json({ rows })
+    } catch (err) {
+        res.status(500).json({error: err.message})
+    }
+}
+
+
 exports.findTickets = async (req, res) => {
     const session = sessionModel.getSession(req.cookies.sessionId);
         if (session && session.type == 0) {
@@ -45,7 +55,7 @@ exports.getPasses = async (req, res) => {
 
 exports.payTicket = async (req, res) => {
     const session = sessionModel.getSession(req.cookies.sessionId);
-        if (session && session.type == 0) {
+    if (session && session.type == 0) {
         try {
             console.log(req.body.ticketId);
             const [rows] = await db.query('EXEC Parking.PayTicket @TicketID=:ticketID, @PersonID=:personID', {
@@ -107,7 +117,7 @@ exports.giveTicket = async (req, res) => {
                         stateCode
                     }
                 })
-                await db.query('EXEC Parking.GiveTicket @LotName=:lotName, @LicensePlate=:plate, @StateCode=:stateCode, @OfficerID=:officerId', {
+                const [rows] = await db.query('EXEC Parking.GiveTicket @LotName=:lotName, @LicensePlate=:plate, @StateCode=:stateCode, @OfficerID=:officerId', {
                     replacements: {
                         lotName,
                         plate,
@@ -115,7 +125,7 @@ exports.giveTicket = async (req, res) => {
                         officerId: session.dataID
                     }
                 });
-                res.json({ticketGiven: true, ticketFee: checkRows[0].Fee})
+                res.json({ticketGiven: rows.length > 0, ticketFee: checkRows[0].Fee})
             }
         } catch (err) {
             res.status(500).json({error: err.message})
@@ -131,4 +141,23 @@ exports.getLots = async (req, res) => {
         res.status(500).json({error: err.message})
     }
     
+}
+
+exports.getOfficerRank = async (req, res) => {
+    const { month, year } = req.body;
+    const session = sessionModel.getSession(req.cookies.sessionId);
+    if (session && session.type == 1) {
+        try {
+            const [rows] = await db.query('EXEC Parking.OfficerRank @Month=:month, @Year=:year', {
+                replacements: {
+                    month,
+                    year
+                }
+            })
+            res.json({rows});
+        } catch (err) {
+            res.status(500).json({error: err.message})
+        }
+        
+    }
 }
