@@ -161,3 +161,22 @@ exports.getOfficerRank = async (req, res) => {
         
     }
 }
+
+exports.getTicketRevenue = async (req, res) => {
+    const { month, year } = req.body;
+    const session = sessionModel.getSession(req.cookies.sessionId);
+    if (session && session.type == 1) {
+        try {
+            const [rows] = await db.query('EXEC Parking.GetTicketRevenue @Month=:month, @Year=:year', {
+                replacements: {
+                    month,
+                    year
+                }
+            })
+            res.json({rows});
+        } catch (err) {
+            res.status(500).json({error: err.message})
+        }
+        
+    }
+}

@@ -261,3 +261,59 @@ input, select {
 .pass-table {
     margin-bottom: 40px;
 }
+
+.stats-container {
+    position: fixed;
+    top: 80px; /* Exactly the height of your .top-bar (which is 60px!) */
+    right: 20px;
+    z-index: 11; /* higher than the top-bar */
+}
+
+.stats-button {
+    background-color: #17a2b8; /* A nice teal color (distinct from the others) */
+    color: white;
+    padding: 0.8rem 1.6rem;
+    border: none;
+    border-radius: 6px; /* very slightly round */
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* space between the icon and text */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    min-width: 180px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.stats-button:hover {
+    background-color: #138496; /* darker teal on hover */
+    transform: scale(1.05);
+}
+
+.stats-button i {
+    font-style: normal;
+    background-color: white;
+    color: #17a2b8;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+
+.page-layout {
+    display: flex;
+    width: 100%;
+    height: 100vh; /* full page height */
+}
+
+.left-section, .middle-section, .right-section {
+    flex: 1; /* equal size */
+    padding: 20px;
+    box-sizing: border-box;
+}

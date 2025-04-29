@@ -71,3 +71,19 @@ exports.officerPage = async (req, res) => {
     }
     
 };
+
+//stats page
+exports.statsPage = async (req, res) => {
+    const session = sessionModel.getSession(req.cookies.sessionId);
+        if (session && session.type == 1) {
+        const filePath = path.join(__dirname, '../../Frontend/StatsPage/StatsPage_logic.js');
+        try {
+            res.sendFile(filePath);
+        } catch (err) {
+            res.status(500).send('Error loading js');
+        }
+    } else {
+        res.status(401).json({ success: false, message: 'Invalid status' });
+    }
+    
+};

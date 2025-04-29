@@ -8,5 +8,6 @@ router.get('/person-login', jsController.personLogin);
 router.get('/officer-login', jsController.officerLogin);
 router.get('/person-page', jsController.personPage);
 router.get('/officer-page', jsController.officerPage);
+router.get('/stats-page', jsController.statsPage);
 
 module.exports = router;
