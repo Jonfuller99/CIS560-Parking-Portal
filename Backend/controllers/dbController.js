@@ -163,14 +163,14 @@ exports.getOfficerRank = async (req, res) => {
 }
 
 exports.getTicketRevenue = async (req, res) => {
-    const { month, year } = req.body;
+    const { startDate, endDate } = req.body;
     const session = sessionModel.getSession(req.cookies.sessionId);
     if (session && session.type == 1) {
         try {
-            const [rows] = await db.query('EXEC Parking.GetTicketRevenue @Month=:month, @Year=:year', {
+            const [rows] = await db.query('EXEC Parking.GetTicketRevenue @StartDate=:startDate, @EndDate=:emdDate', {
                 replacements: {
-                    month,
-                    year
+                    startDate,
+                    endDate
                 }
             })
             res.json({rows});
