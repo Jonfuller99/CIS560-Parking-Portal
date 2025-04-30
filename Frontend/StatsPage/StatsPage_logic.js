@@ -6,7 +6,7 @@ let revenueMonth = now.getMonth() + 1;
 let revenueYear = now.getFullYear();
 
 function updateLeaderboard() {
-    document.getElementById('leaderboard-date').innerHTML = `${month}/${year}`;
+    document.getElementById('leaderboard-date').innerHTML = `${leaderboardMonth}/${leaderboardYear}`;
     const req = {
         method: 'POST',
             headers: {
@@ -45,7 +45,7 @@ function updateLeaderboard() {
 }
 
 function updateTicketRevenue() {
-    document.getElementById('ticket-revenue-date').innerHTML = `${month}/${year}`;
+    document.getElementById('ticket-revenue-date').innerHTML = `${revenueMonth}/${revenueYear}`;
     const req = {
         method: 'POST',
             headers: {
@@ -139,21 +139,16 @@ function populateTable(dataArray, regexArray, isCurrencyArray, tableId) {
 }
 
 function dateDown() {
-    if (month == 1) {
-        month = 12;
-        year--;
-    } else {
-        month--;
-    }
-    updateTables();
+
+     console.log(document.getElementById("ticket-revenue-date").value);
 }
 
 function dateUp() {
-    if (month == 12) {
-        month = 1;
-        year++;
+    if (leaderboardMonth == 12) {
+        leaderboardMonth = 1;
+        leaderboardYear++;
     } else {
-        month++;
+        leaderboardMonth++;
     }
     updateTables();
 }
