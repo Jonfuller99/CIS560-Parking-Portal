@@ -20,7 +20,7 @@ BEGIN
         AND T.TimePaid IS NULL;
 
     --select tickets for person
-    SELECT T.TicketID, L.LotName, L.LotType, T.TimeIssued, T.Fee, T.LateCharge, 
+    SELECT L.LotName, L.LotType, T.TimeIssued, T.Fee, T.LateCharge, 
         (T.Fee + T.LateCharge) AS Total
     FROM Parking.Tickets T
         INNER JOIN Parking.Lots L ON T.LotID = L.LotID

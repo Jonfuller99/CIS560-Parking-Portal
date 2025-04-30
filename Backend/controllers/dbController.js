@@ -54,13 +54,14 @@ exports.getPasses = async (req, res) => {
 }
 
 exports.payTicket = async (req, res) => {
+    const {dateIssued, lotName} = req.body;
     const session = sessionModel.getSession(req.cookies.sessionId);
     if (session && session.type == 0) {
         try {
-            console.log(req.body.ticketId);
-            const [rows] = await db.query('EXEC Parking.PayTicket @TicketID=:ticketID, @PersonID=:personID', {
+            const [rows] = await db.query('EXEC Parking.PayTicket @DateIssued=:dateIssued, @LotName=:lotName, @PersonID=:personID', {
                 replacements: {
-                    ticketID: req.body.ticketId,
+                    dateIssued,
+                    lotName,
                     personID: session.dataID
                 }
             });

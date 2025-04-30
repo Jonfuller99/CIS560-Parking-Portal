@@ -1,6 +1,6 @@
 const path = require('path');
 
-//homepage
+//main
 exports.getStyle = async (req, res) => {
     const filePath = path.join(__dirname, '../../Frontend/Styles/MainStyle.css');
     try {

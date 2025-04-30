@@ -17,7 +17,6 @@ fetch('/db/get-pass-prices')
         return res.json();
     })
     .then(data => {
-        console.log(data.rows);
         const passTable = document.getElementById('pass-table');
         const thead = document.createElement("thead");
 
