@@ -1,59 +1,14 @@
-let now = new Date();
-let leaderboardMonth = now.getMonth() + 1;
-let leaderboardYear = now.getFullYear();
-
-let revenueMonth = now.getMonth() + 1;
-let revenueYear = now.getFullYear();
-
-function updateLeaderboard() {
-    document.getElementById('leaderboard-date').innerHTML = `${leaderboardMonth}/${leaderboardYear}`;
-    const req = {
-        method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                leaderboardMonth,
-                leaderboardYear
-            })
-    }
-    fetch('/db/get-officer-rank', req)
-        .then(res => {
-            return res.json();
-        })
-        .then(data => {
-            let regexArray = [
-                {regex: /(.*)/g, replace: "$1"},
-                {regex: /(.*)/g, replace: "$1"},
-                {regex: /(.*)/g, replace: "$1"},
-                {regex: /(.*)/g, replace: "$1"},
-                {regex: /(.*)/g, replace: "$1"},
-                {regex: /(.*)/g, replace: "$1"}
-            ];
-
-            let isCurrencyArray = [
-                false,
-                false,
-                false,
-                false,
-                true,
-                false
-            ];
-
-            populateTable(data.rows, regexArray, isCurrencyArray, 'leaderboard');
-        })
-}
-
 function updateTicketRevenue() {
-    document.getElementById('ticket-revenue-date').innerHTML = `${revenueMonth}/${revenueYear}`;
+    let startDate = document.getElementById('tr-start-date').value;
+    let endDate = document.getElementById('tr-end-date').value;
     const req = {
         method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                revenueMonth,
-                revenueYear
+                startDate,
+                endDate
             })
     }
     fetch('/db/get-ticket-revenue', req)
@@ -62,7 +17,7 @@ function updateTicketRevenue() {
         })
         .then(data => {
             let regexArray = [
-                {regex: /(.*)/g, replace: "$1"},
+                {regex: /(\d+)-0?(\d+)-0?(\d+)T.*/g, replace: "$2/$3/$1"},
                 {regex: /(.*)/g, replace: "$1"},
                 {regex: /(.*)/g, replace: "$1"},
                 {regex: /(.*)/g, replace: "$1"},
@@ -82,6 +37,76 @@ function updateTicketRevenue() {
             ];
 
             populateTable(data.rows, regexArray, isCurrencyArray, 'ticket-revenue');
+        })
+}
+
+function updatePassType() {
+    let startDate = document.getElementById('cpt-start-date').value;
+    let endDate = document.getElementById('cpt-end-date').value;
+    const req = {
+        method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                startDate,
+                endDate
+            })
+    }
+    fetch('/db/get-common-pass-type', req)
+        .then(res => {
+            return res.json();
+        })
+        .then(data => {
+            let regexArray = [
+                {regex: /(.*)/g, replace: "$1"},
+                {regex: /(.*)/g, replace: "$1"},
+                {regex: /(.*)/g, replace: "$1"}
+            ];
+
+            let isCurrencyArray = [
+                false,
+                false,
+                true
+            ];
+
+            populateTable(data.rows, regexArray, isCurrencyArray, 'common-pass-type');
+        })
+}
+
+function updateTicketDay() {
+    let startDate = document.getElementById('ptd-start-date').value;
+    let endDate = document.getElementById('ptd-end-date').value;
+    const req = {
+        method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                startDate,
+                endDate
+            })
+    }
+    fetch('/db/get-popular-ticket-day', req)
+        .then(res => {
+            return res.json();
+        })
+        .then(data => {
+            let regexArray = [
+                {regex: /(.*)/g, replace: "$1"},
+                {regex: /(.*)/g, replace: "$1"},
+                {regex: /(\d+\.\d{4}).*/g, replace: "$1"},
+                {regex: /(.*)/g, replace: "$1"}
+            ];
+
+            let isCurrencyArray = [
+                false,
+                false,
+                false,
+                true
+            ];
+
+            populateTable(data.rows, regexArray, isCurrencyArray, 'popular-ticket-day');
         })
 }
 
@@ -137,28 +162,6 @@ function populateTable(dataArray, regexArray, isCurrencyArray, tableId) {
     table.appendChild(thead);
     table.appendChild(tbody);
 }
-
-function dateDown() {
-
-     console.log(document.getElementById("ticket-revenue-date").value);
-}
-
-function dateUp() {
-    if (leaderboardMonth == 12) {
-        leaderboardMonth = 1;
-        leaderboardYear++;
-    } else {
-        leaderboardMonth++;
-    }
-    updateTables();
-}
-
-function updateTables(){
-    updateLeaderboard();
-    updateTicketRevenue();
-}
-
-updateTables();
 
 
 
