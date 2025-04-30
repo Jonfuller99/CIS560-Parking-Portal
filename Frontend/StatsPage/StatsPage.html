@@ -9,38 +9,37 @@
         <div class="page-layout">
             <div class="left-section">
                 <div class="leaderboard-container">
-                    <h1>Leaderboard</h1>
+                    <h1>Ticket Revenue</h1>
                     <div class="date-input">
-                        <button class="arrow-button" onclick="dateDown()">&lt;</button><div id="ticket-revenue-date" class="date"></div><button class="arrow-button" onclick="dateUp()">&gt;</button>
+                        <input type="date" id="tr-start-date"></input>
+                        <input type="date" id="tr-end-date"></input>
                     </div>
                     <table id="ticket-revenue" class="leaderboard"></table>
                 </div>
             </div>
             <div class="middle-section">
                 <div class="leaderboard-container">
-                    <h1>Leaderboard</h1>
+                    <h1>Most Common Pass Type</h1>
                     <div class="date-input">
-                        <button class="arrow-button" onclick="dateDown()">&lt;</button><div id="leaderboard-date" class="date"></div><button class="arrow-button" onclick="dateUp()">&gt;</button>
+                        <input type="date" id="cpt-start-date"></input>
+                        <input type="date" id="cpt-end-date"></input>
                     </div>
-                    <table id="leaderboard" class="leaderboard"></table>
-                </div>
+                    <table id="common-pass-type" class="leaderboard"></table>
+                </div>  
             </div>
             <div class="right-section">
                 <div class="leaderboard-container">
-                    <h1>Leaderboard</h1>
+                    <h1>Most Popular Ticket Day</h1>
                     <div class="date-input">
-                        <button class="arrow-button" onclick="dateDown()">&lt;</button><div id="date" class="date"></div><button class="arrow-button" onclick="dateUp()">&gt;</button>
+                        <input type="date" id="ptd-start-date"></input>
+                        <input type="date" id="ptd-end-date"></input>
                     </div>
-                    <table id="leaderboard" class="leaderboard"></table>
+                    <table id="popular-ticket-day" class="leaderboard"></table>
                 </div>
             </div>
         </div>
 
-            <div class="right-side-officer">
-                
-                
-            </div>
-            
+           
         </div>
     </body>
     <script src="/js/stats-page"></script>
