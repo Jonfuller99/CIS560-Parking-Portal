@@ -1,24 +1,24 @@
 const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
-const {Sequelize} = require('sequelize');
+const sql = require('mssql/msnodesqlv8');
 
+console.log(process.env.DB_SERVER, process.env.DB_DATABASE);
 
-const sql = new Sequelize({
-    dialect: 'mssql',
-    dialectModule: require('msnodesqlv8/lib/sequelize'),
-    dialectOptions: {
-        options: {
-        connectionString: `Driver={ODBC Driver 17 for SQL Server};Server=${process.env.DB_SERVER};Database=${process.env.DB_DATABASE};Trusted_Connection=Yes;`,
-        }
-    },
-    define: {
-        timestamps: false
-    },
-    logging: false, // optional: disable SQL logging
-})
+const config = {
+    connectionString: `Driver={ODBC Driver 17 for SQL Server};Server=${process.env.DB_SERVER};Database=${process.env.DB_DATABASE};Trusted_Connection=Yes;`
+};
 
-sql.authenticate()
-  .then(() => console.log('✅ Sequelize connected to LocalDB'))
-  .catch(err => console.error('❌ Connection failed:', err));
+const poolPromise = sql.connect(config)
+    .then(pool => {
+        console.log('Connected to SQL Server');
+        return pool;
+    })
+    .catch(err => {
+        console.error('Database Connection Failed! Bad Config:', err);
+        throw err;
+    });
 
-module.exports = sql;
+module.exports = {
+    sql,
+    poolPromise
+};
