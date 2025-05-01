@@ -68,7 +68,8 @@ fetch('/db/find-tickets')
             
             data.rows.forEach((row) => {
                 const tr = document.createElement("tr");
-                tr.setAttribute("ticketId", row.TicketID);
+                tr.setAttribute("dateIssued", row.TimeIssued.replace(/(\d+-\d+-\d+).*/g, "$1"));
+                tr.setAttribute("lotName", row.LotName);
 
                 const tdLotName = document.createElement("td");
                 tdLotName.textContent = row.LotName;
@@ -99,7 +100,8 @@ fetch('/db/find-tickets')
                 const payButton = document.createElement("button");
                 payButton.textContent = "PAY";
                 payButton.className = "pay-button";
-                payButton.setAttribute("ticketId", row.TicketID);
+                payButton.setAttribute("dateIssued", row.TimeIssued.replace(/(\d+-\d+-\d+).*/g, "$1"));
+                payButton.setAttribute("lotName", row.LotName);
                 payButton.addEventListener("click", payClick);
                 tdPay.appendChild(payButton);
                 tr.appendChild(tdPay);
@@ -112,7 +114,8 @@ fetch('/db/find-tickets')
     })
 
 function payClick(event) {
-    const ticketId = event.target.getAttribute("ticketId");
+    const dateIssued = event.target.getAttribute("dateIssued");
+    const lotName = event.target.getAttribute("lotName");
     //add ticket payment functionality
     let req = {
         method: 'POST',
@@ -120,7 +123,8 @@ function payClick(event) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            ticketId: ticketId
+            dateIssued,
+            lotName
         })
     }
     fetch('/db/pay-ticket', req)
@@ -131,17 +135,17 @@ function payClick(event) {
             if (data.rows.length == 0) {
                 console.log("Ticket payment failed");
             } else {
-                removeTicket(ticketId);
+                removeTicket(dateIssued, lotName);
             }
         })
     
 }
 
-function removeTicket(ticketId) {
+function removeTicket(dateIssued, lotName) {
     const tableDiv = document.getElementById('tickets-table');
     const ticketsTable = tableDiv.children[0];
     for (let tr of ticketsTable.children) {
-        if (tr.getAttribute("ticketId") == ticketId) {
+        if (tr.getAttribute("dateIssued") == dateIssued && tr.getAttribute("lotName") == lotName) {
             ticketsTable.removeChild(tr);
         }
     }

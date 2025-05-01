@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Stats</title>
+        <link rel="stylesheet" href="/style">
+    </head>
+    <body class="stable-body">
+        <div class="top-bar"></div>
+        <div class="page-layout">
+            <div class="left-section">
+                <div class="leaderboard-container">
+                    <h1>Ticket Revenue</h1>
+                    <div class="date-input">
+                        <input type="date" id="tr-start-date"></input>
+                        <input type="date" id="tr-end-date"></input>
+                        <button onclick="updateTicketRevenue()">GO</button>
+                    </div>
+                    <table id="ticket-revenue" class="leaderboard"></table>
+                </div>
+            </div>
+            <div class="middle-section">
+                <div class="leaderboard-container">
+                    <h1>Most Common Pass Type</h1>
+                    <div class="date-input">
+                        <input type="date" id="cpt-start-date"></input>
+                        <input type="date" id="cpt-end-date"></input>
+                        <button onclick="updatePassType()">GO</button>
+                    </div>
+                    <table id="common-pass-type" class="leaderboard"></table>
+                </div>  
+            </div>
+            <div class="right-section">
+                <div class="leaderboard-container">
+                    <h1>Most Popular Ticket Day</h1>
+                    <div class="date-input">
+                        <input type="date" id="ptd-start-date"></input>
+                        <input type="date" id="ptd-end-date"></input>
+                        <button onclick="updateTicketDay()">GO</button>
+                    </div>
+                    <table id="popular-ticket-day" class="leaderboard"></table>
+                </div>
+            </div>
+        </div>
+
+           
+        </div>
+    </body>
+    <script src="/js/stats-page"></script>
+</html>

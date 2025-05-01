@@ -86,3 +86,19 @@ exports.officerPage = async (req, res) => {
         res.status(401).json({ success: false, message: 'Invalid status' });
     }
 };
+
+//stats page
+exports.statsPage = async (req, res) => {
+    const session = sessionModel.getSession(req.cookies.sessionId);
+    if (session && session.type == 1) {
+        const filePath = path.join(__dirname, '../../Frontend/StatsPage/StatsPage.html');
+        try {
+            res.sendFile(filePath);
+            console.log("At stats page")
+        } catch (err) {
+            res.status(500).send('Error loading page');
+        }
+    } else {
+        res.status(401).json({ success: false, message: 'Invalid status' });
+    }
+};

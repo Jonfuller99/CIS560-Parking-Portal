@@ -1,5 +1,5 @@
 node_modules/
 .DS_Store
-.env
+D:\Code\CIS560-Parking-Portal\Backend\.env
 package-lock.json
 package.json

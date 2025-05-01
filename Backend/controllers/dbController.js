@@ -52,15 +52,18 @@ exports.getPasses = async (req, res) => {
 };
 
 exports.payTicket = async (req, res) => {
+    const {dateIssued, lotName} = req.body;
     const session = sessionModel.getSession(req.cookies.sessionId);
     if (session && session.type === 0) {
         try {
             const pool = await poolPromise;
             const result = await pool.request()
-                .input('TicketID', sql.Int, req.body.ticketId)
+                .input('DateIssued', sql.Date, dateIssued)
+                .input('LotName', sql.VarChar, lotName)
                 .input('PersonID', sql.Int, session.dataID)
                 .execute('Parking.PayTicket');
             res.json({ rows: result.recordset });
+
         } catch (err) {
             res.status(500).json({ error: err.message });
         }
@@ -150,3 +153,58 @@ exports.getOfficerRank = async (req, res) => {
         }
     }
 };
+
+exports.getTicketRevenue = async (req, res) => {
+    const { startDate, endDate } = req.body;
+    const session = sessionModel.getSession(req.cookies.sessionId);
+    if (session && session.type == 1) {
+        try {
+            const [rows] = await db.query("EXEC Parking.GetTicketRevenue @StartDate=:startDate, @EndDate=:endDate", {
+                replacements: {
+                    startDate,
+                    endDate
+                }
+            })
+            res.json({rows});
+        } catch (err) {
+            res.status(500).json({error: err.message})
+        }
+        
+    }
+}
+
+exports.getCommonPassType = async (req, res) => {
+    const { startDate, endDate } = req.body;
+    const session = sessionModel.getSession(req.cookies.sessionId);
+    if (session && session.type == 1) {
+        try {
+            const [rows] = await db.query("EXEC Parking.GetMostCommonPassType @StartDate=:startDate, @EndDate=:endDate", {
+                replacements: {
+                    startDate,
+                    endDate
+                }
+            })
+            res.json({rows});
+        } catch (err) {
+            res.status(500).json({error: err.message})
+        }
+    }
+}
+
+exports.getPopularTicketDay = async (req, res) => {
+    const { startDate, endDate } = req.body;
+    const session = sessionModel.getSession(req.cookies.sessionId);
+    if (session && session.type == 1) {
+        try {
+            const [rows] = await db.query("EXEC Parking.GetMostPopularTicketDay @StartDate=:startDate, @EndDate=:endDate", {
+                replacements: {
+                    startDate,
+                    endDate
+                }
+            })
+            res.json({rows});
+        } catch (err) {
+            res.status(500).json({error: err.message})
+        }
+    }
+}
