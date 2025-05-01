@@ -157,54 +157,51 @@ exports.getOfficerRank = async (req, res) => {
 exports.getTicketRevenue = async (req, res) => {
     const { startDate, endDate } = req.body;
     const session = sessionModel.getSession(req.cookies.sessionId);
-    if (session && session.type == 1) {
+    if (session && session.type === 1) {
         try {
-            const [rows] = await db.query("EXEC Parking.GetTicketRevenue @StartDate=:startDate, @EndDate=:endDate", {
-                replacements: {
-                    startDate,
-                    endDate
-                }
-            })
-            res.json({rows});
+            const pool = await poolPromise;
+            const result = await pool.request()
+                .input('StartDate', sql.DateTime, startDate)
+                .input('EndDate', sql.DateTime, endDate)
+                .execute('Parking.GetTicketRevenue');
+            res.json({ rows: result.recordset });
         } catch (err) {
-            res.status(500).json({error: err.message})
+            res.status(500).json({ error: err.message });
         }
-        
     }
-}
+};
 
 exports.getCommonPassType = async (req, res) => {
     const { startDate, endDate } = req.body;
     const session = sessionModel.getSession(req.cookies.sessionId);
-    if (session && session.type == 1) {
+    if (session && session.type === 1) {
         try {
-            const [rows] = await db.query("EXEC Parking.GetMostCommonPassType @StartDate=:startDate, @EndDate=:endDate", {
-                replacements: {
-                    startDate,
-                    endDate
-                }
-            })
-            res.json({rows});
+            const pool = await poolPromise;
+            const result = await pool.request()
+                .input('StartDate', sql.DateTime, startDate)
+                .input('EndDate', sql.DateTime, endDate)
+                .execute('Parking.GetMostCommonPassType');
+            res.json({ rows: result.recordset });
         } catch (err) {
-            res.status(500).json({error: err.message})
+            res.status(500).json({ error: err.message });
         }
     }
-}
+};
 
 exports.getPopularTicketDay = async (req, res) => {
     const { startDate, endDate } = req.body;
     const session = sessionModel.getSession(req.cookies.sessionId);
-    if (session && session.type == 1) {
+    if (session && session.type === 1) {
         try {
-            const [rows] = await db.query("EXEC Parking.GetMostPopularTicketDay @StartDate=:startDate, @EndDate=:endDate", {
-                replacements: {
-                    startDate,
-                    endDate
-                }
-            })
-            res.json({rows});
+            const pool = await poolPromise;
+            const result = await pool.request()
+                .input('StartDate', sql.DateTime, startDate)
+                .input('EndDate', sql.DateTime, endDate)
+                .execute('Parking.GetMostPopularTicketDay');
+            res.json({ rows: result.recordset });
         } catch (err) {
-            res.status(500).json({error: err.message})
+            res.status(500).json({ error: err.message });
         }
     }
-}
+};
+
