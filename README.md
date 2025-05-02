@@ -8,7 +8,7 @@
 # Project structure:
 ## Frontend
 ## Backend
-server.js - Main file for running the server and connects all auxilary files. Connects all the routes and listens on the port specfied in the .env file
+;server.js - Main file for running the server and connects all auxilary files. Connects all the routes and listens on the port specfied in the .env file
 
 .env - holds all envrionment variables like the DB_SERVER (server name), the DB_DATABASE (database name), and the PORT (the port for the server to listen into)
 ### config
@@ -37,5 +37,30 @@ authController.js - validates logins with the db and updates the sessionModel ap
 dbController.js - interacts appropriately with the db based off request
  ## SQL
 Tables.sql - initializes all tables within the database and also fills them with appropriate test data
-
 ### StoredProcedures
+BuyPass.sql - inserts a pass associated with a person, creating them if necessary
+
+CheckTicket.sql - checks if a person is in violation of parking in a lot they have no access to
+
+CreatePerson.sql - creates person if they don't already exist
+
+FindTicket.sql - finds all unpaid tickets associated with a person
+
+GetPasses.sql - gets all passes associated with a person
+
+GiveTicket.sql - gives a ticket associated with a person, officer, and lot at the current time
+
+OfficerLogin.sql - returns rows associated with a given officer username and hashed password
+
+PayTicket.sql - updates the TimePaid field on a ticket given the associated PersonID, LotName, and DateIssued
+
+PersonLogin.sql - returns rows assoicated with a give person license plate and state code
+
+#### Aggregating Queries
+GetMostCommonPassType - ranks pass tyes based off how common they are purchased in a certain timeframe, also returns the revenue from each pass
+
+GetMostPopularTicketDay - ranks days of the week based off how many tickets were given on that day within a certain timeframe
+
+GetTicketRevenue - returns days in which tickets were given and keeps track of ticket counts, sums, and average fees
+
+OfficerRank - ranks the officers based off how much ticket revenue they have made for a certain month of a year.
