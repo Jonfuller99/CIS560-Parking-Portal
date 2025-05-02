@@ -8,7 +8,7 @@
 # Project structure:
 ## Frontend
 ## Backend
-;server.js - Main file for running the server and connects all auxilary files. Connects all the routes and listens on the port specfied in the .env file
+server.js - Main file for running the server and connects all auxilary files. Connects all the routes and listens on the port specfied in the .env file
 
 .env - holds all envrionment variables like the DB_SERVER (server name), the DB_DATABASE (database name), and the PORT (the port for the server to listen into)
 ### config
