@@ -12,6 +12,13 @@ fetch('/db/get-codes')
         })
     })
 
+    
+function showMessage(text, isSuccess) {
+    const message = document.getElementById('login-text');
+    message.textContent = text;
+    message.className = 'message-text ' + (isSuccess ? 'success' : 'error');
+}
+
 async function login() {
     let personPlate = document.getElementById('plate').value;
     let personStateCode = document.getElementById('state-code').value;
@@ -45,7 +52,7 @@ async function login() {
             }
         })
         .catch(error => {
-            document.getElementById('login-text').textContent = "No records associated with Person";
+            showMessage("No records associated with Person", false);
             console.error('Fetch error:', error); // Handle errors
         });
 

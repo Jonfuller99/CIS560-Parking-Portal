@@ -23,7 +23,7 @@ async function login() {
                 document.cookie = `sessionId=${data.id}; path=/; max-age=3600; secure; samesite=strict`;
                 window.location.href = '/officer-page';
             } else {
-                document.getElementById('login-text').textContent = "Invalid Officer Credentials";
+                showMessage("Invalid Officer Credentials", false);
                 console.log(data.message);
             }
         })
@@ -31,4 +31,11 @@ async function login() {
             console.error('Fetch error:', error); // Handle errors
         });
 
+}
+
+
+function showMessage(text, isSuccess) {
+    const message = document.getElementById('login-text');
+    message.textContent = text;
+    message.className = 'message-text ' + (isSuccess ? 'success' : 'error');
 }

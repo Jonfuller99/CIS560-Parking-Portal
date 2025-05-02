@@ -18,11 +18,11 @@
                 <h1>Assign Ticket</h1>
 
                 <div>
-                    <input class="input" id="plate" type="text" placeholder="License Plate">
+                    <input class="input" id="plate" type="text" maxlength="6" placeholder="License Plate">
                 </div>
                     <select class="code-input" id="state-code" name="State Code"></select>
                     <select class="input" id="lots" name="Lots"></select>
-                <p class="red-text" id="purchase-text"></p>
+                <p class="message-text" id="purchase-text"></p>
                 <div>
                     <button id="submit-ticket-btn" onclick="giveTicketClick()" class="login-btn">Submit Ticket</button>
                 </div>

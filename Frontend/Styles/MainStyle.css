@@ -78,7 +78,7 @@ a {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 10;
+    z-index: 9999;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -143,9 +143,18 @@ tr:hover {
     border: none; 
 }
 
-.red-text {
+.message-text {
+    width: 350px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.message-text.success {
+    color: green;
+}
+
+.message-text.error {
     color: red;
-    height: 30px;
 }
 
 input, select {
@@ -163,7 +172,7 @@ input, select {
     justify-content: space-between;
     width: 90%;
     max-width: 1200px;
-    margin: 100px auto 0; /* Top margin to clear the top bar */
+    margin: 100px auto 0; 
 }
 
 .left-side-officer {
@@ -173,7 +182,7 @@ input, select {
 .right-side-officer {
     flex: 1;
     display: flex;
-    justify-content: flex-end; /* Push table to the right */
+    justify-content: flex-end; 
 }
 
 .leaderboard {
@@ -225,14 +234,40 @@ input, select {
 
 .date-input {
     display: flex;
+    gap: 10px; 
     justify-content: center;
     align-items: center;
+    margin-bottom: 10px;
+}
+.date-input input[type="date"] {
+    height: 48px;
+    padding: 0 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    vertical-align: middle;
+    line-height: 1;
+    margin: 0;
+}
+.date-input button {
+    height: 48px;
+    padding: 0 16px;
+    font-size: 16px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .leaderboard-container {
     display: flex;
-    align-items: center;
     flex-direction: column;
+}
+
+.leaderboard-container h1 {
+    margin: 0 0 10px 0; /* Consistent space below the header */
 }
 
 .input {
@@ -253,41 +288,47 @@ input, select {
     align-items: center;
 }
 
-.red-text {
-    width: 350px;
-    text-align: center;
-}
+
+
 
 .pass-table {
     margin-bottom: 40px;
 }
 
+.back-container {
+    position:absolute;
+    top: 80px; 
+    left: 20px;
+    z-index: 10; 
+    
+}
+
 .stats-container {
     position: fixed;
-    top: 80px; /* Exactly the height of your .top-bar (which is 60px!) */
+    top: 80px; 
     right: 20px;
-    z-index: 11; /* higher than the top-bar */
+    z-index: 11; 
 }
 
 .stats-button {
-    background-color: #17a2b8; /* A nice teal color (distinct from the others) */
+    background-color: #17a2b8; 
     color: white;
     padding: 0.8rem 1.6rem;
     border: none;
-    border-radius: 6px; /* very slightly round */
+    border-radius: 6px; 
     cursor: pointer;
     font-size: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px; /* space between the icon and text */
+    gap: 8px; 
     transition: background-color 0.3s ease, transform 0.2s ease;
     min-width: 180px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .stats-button:hover {
-    background-color: #138496; /* darker teal on hover */
+    background-color: #138496; 
     transform: scale(1.05);
 }
 
@@ -309,11 +350,48 @@ input, select {
 .page-layout {
     display: flex;
     width: 100%;
-    height: 100vh; /* full page height */
+    height: 100vh; 
+    align-items: flex-start;
 }
 
 .left-section, .middle-section, .right-section {
-    flex: 1; /* equal size */
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; 
     padding: 20px;
     box-sizing: border-box;
+    margin-top: 30px;
 }
+
+.stats-tables{
+    border-collapse: collapse;
+    width: 80%;
+    max-width: 1000px;
+    background: white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border-radius: 12px;
+    overflow: hidden;
+   
+}
+
+.stats-tables th, .stats-tables td {
+    padding: 15px;
+    text-align: center;
+    font-size: 16px;
+    border-bottom: 1px solid #ddd;
+}
+
+.stats-tables th {
+    background-color: rgb(109, 109, 109);
+    color: white;
+}
+
+.stats-tables tr:nth-child(even) {
+    background-color: #f7f7f7;
+}
+
+.stats-tables tr:hover {
+    background-color: #f1f1f1;
+}
+

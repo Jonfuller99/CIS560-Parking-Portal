@@ -60,10 +60,16 @@ fetch('/db/get-pass-prices')
         })
     })
 
+function showMessage(text, isSuccess) {
+    const message = document.getElementById('purchase-text');
+    message.textContent = text;
+    message.className = 'message-text ' + (isSuccess ? 'success' : 'error');
+}
+
 function buyClick(event) {
     const passType = event.target.getAttribute("passType");
     if (document.getElementById("plate").value == "") {
-        document.getElementById('purchase-text').textContent = "Must input a License Plate and State Code";
+        showMessage('Must input a License Plate and State Code', false); 
     } else {
         let req = {
             method: 'POST',
@@ -80,9 +86,9 @@ function buyClick(event) {
         fetch('/db/buy-pass', req)
         .then(res => {
             if (res.ok) {
-                document.getElementById('purchase-text').textContent = `${passType} Pass was successfully purchased`;
+                showMessage(`${passType} Pass was successfully purchased`, true); 
             } else {
-                document.getElementById('purchase-text').textContent = "Ticket already owned";
+                showMessage('Ticket already owned', false); 
             }
         });
         

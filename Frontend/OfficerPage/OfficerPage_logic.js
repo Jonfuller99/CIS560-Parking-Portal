@@ -72,7 +72,7 @@ function updateLeaderboard() {
 
 function giveTicketClick() {
     if (document.getElementById("plate").value == "") {
-        document.getElementById('purchase-text').textContent = "Must input a License Plate and State Code";
+        showMessage("Must input a License Plate and State Code", false);
     } else {
         let req = {
             method: 'POST',
@@ -93,20 +93,25 @@ function giveTicketClick() {
         })
         .then(data => {
             if (data.ticketGiven) {
-                document.getElementById('purchase-text').textContent = `Ticket assigned - Fee: $${data.ticketFee.toFixed(2)}`;
+                showMessage(`Ticket assigned - Fee: $${data.ticketFee.toFixed(2)}`, true);
                 updateLeaderboard();
             }
             else {
-                document.getElementById('purchase-text').textContent = "No ticket available";
+                showMessage("No ticket available", false);
             }
         })  
         .catch(err => {
-            document.getElementById('purchase-text').textContent = "No ticket available";
+            showMessage("No ticket available", false);
             console.log(err.error);
         })   
     }
 }
 
+function showMessage(text, isSuccess) {
+    const message = document.getElementById('purchase-text');
+    message.textContent = text;
+    message.className = 'message-text ' + (isSuccess ? 'success' : 'error');
+}
 
 function pascalToTitle(text) {
     return text.replace(/([A-Z])/g, ' $1').trim();

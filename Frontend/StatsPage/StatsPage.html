@@ -6,6 +6,13 @@
     </head>
     <body class="stable-body">
         <div class="top-bar"></div>
+        <div class="back-container">
+            <a href="/">
+                <button class="big-button">
+                    Back to Homepage
+                </button>
+            </a>
+        </div>
         <div class="page-layout">
             <div class="left-section">
                 <div class="leaderboard-container">
@@ -15,7 +22,7 @@
                         <input type="date" id="tr-end-date"></input>
                         <button onclick="updateTicketRevenue()">GO</button>
                     </div>
-                    <table id="ticket-revenue" class="leaderboard"></table>
+                    <table id="ticket-revenue" class="stats-tables"></table>
                 </div>
             </div>
             <div class="middle-section">
@@ -24,9 +31,9 @@
                     <div class="date-input">
                         <input type="date" id="cpt-start-date"></input>
                         <input type="date" id="cpt-end-date"></input>
-                        <button onclick="updatePassType()">GO</button>
+                        <button class="button" onclick="updatePassType()">GO</button>
                     </div>
-                    <table id="common-pass-type" class="leaderboard"></table>
+                    <table id="common-pass-type" class="stats-tables"></table>
                 </div>  
             </div>
             <div class="right-section">
@@ -37,7 +44,7 @@
                         <input type="date" id="ptd-end-date"></input>
                         <button onclick="updateTicketDay()">GO</button>
                     </div>
-                    <table id="popular-ticket-day" class="leaderboard"></table>
+                    <table id="popular-ticket-day" class="stats-tables"></table>
                 </div>
             </div>
         </div>

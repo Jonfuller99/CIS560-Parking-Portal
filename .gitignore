@@ -3,3 +3,4 @@ node_modules/
 D:\Code\CIS560-Parking-Portal\Backend\.env
 package-lock.json
 package.json
+.env

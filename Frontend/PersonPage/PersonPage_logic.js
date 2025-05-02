@@ -134,6 +134,7 @@ function payClick(event) {
         .then(data => {
             if (data.rows.length == 0) {
                 console.log("Ticket payment failed");
+                console.log(data)
             } else {
                 removeTicket(dateIssued, lotName);
             }
