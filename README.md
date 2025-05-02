@@ -4,8 +4,8 @@
  - Backend:  Node.js
 
 
-## Project structure:
-  # Backend - 
-  # Frontend - 
-  # SQL - 
+# Project structure:
+  ## Backend - 
+  ## Frontend - 
+  ## SQL - 
 
