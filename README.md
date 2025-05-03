@@ -5,8 +5,44 @@
 
 
 
-# Project structure:
+# Project Structure:
 ## Frontend
+> Each folder (except `Styles`) contains an `.html` and `.js` file.
+
+### BuyPassPage  
+Allows the user to create their account and select a pass to purchase. The user must first enter their license plate and state code in order to buy one of the four selected passes we have available.
+
+### Homepage  
+The main page of the parking portal.  
+Features four navigation options:
+- Officer Login  
+- Person Login  
+- Buy a Pass  
+- Logout
+
+### OfficerLogin  
+Allows an officer to log in to their account using their assigned username and password. This verifies the officer's credentials before allowing them to issue tickets or view statistics.
+
+### OfficerPage  
+Provides the officer with inputs for assigning a ticket to a vehicle. The inputs accept a license plate, state code, and the lot where the violator was parked. This will automatically create a person if they are not already registered in the parking portal.
+
+### PersonLogin  
+Allows a person to log in to their account using their license plate and state code. It does not create a person if the license plate is invalid. Brings the user to the person page.
+
+### PersonPage  
+Interface where a user can view information about their currently owned pass and any tickets. The user can then pay those tickets on this page.
+
+### StatsPage  
+Shows statistical data for the parking system, including:
+- Revenue from tickets  
+- Most common day tickets are issued  
+- Most popular pass type purchased
+
+### Styles  
+Contains the global `CSS` file used for styling the entire frontend.
+
+
+
 ## Backend
 server.js - Main file for running the server and connects all auxilary files. Connects all the routes and listens on the port specfied in the .env file
 
